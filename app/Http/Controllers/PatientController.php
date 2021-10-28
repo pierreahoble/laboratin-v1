@@ -37,5 +37,15 @@ class PatientController extends Controller
         return response()->json($data, 200);
     }
 
+    //recuperer un patient specifique
+
+    public function recupere_un_patient(REQUEST $request)
+    {
+         $nom_patient = Patient::where('nom_patient','like','%'.$request['nom_patient'].'%')->get();
+
+        return $nom_patient;
+
+    }
+
 
 }

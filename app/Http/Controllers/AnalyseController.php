@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Ligne_analyse;
 use App\Models\Nature_analyse;
@@ -34,4 +35,24 @@ class AnalyseController extends Controller
 
        return response()->json($data, 200);
     }
+
+
+    public function liste_analyse()
+    {
+       $data = Nature_analyse::all();
+       return response()->json($data, 200);
+    }
+
+
+    public function analyse_categorie(REQUEST $request)
+    {
+      $data = Categorie::join('nature_analyses','categories.id','nature_analyses.categorie_id')
+                        ->where('nature_analyses.id',$request['id'])
+                        ->get(['nature_analyses.*','prix_unitaire','libelle_analyse','libelle_categorie','categorie_id']);
+
+      return $data;
+    }
+
+
+
 }

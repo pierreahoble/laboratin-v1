@@ -11,4 +11,14 @@ class DashbordController extends Controller
     {
         return view('dashbord.analyse');
     }
+
+
+
+
+
+    //rec
+
+
+
+
 }

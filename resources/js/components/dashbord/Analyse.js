@@ -1,8 +1,96 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { Fragment } from 'react';
+import axios from 'axios';
 
 const Analyse = () => {
+
+
+    const [keyNom, setkeyNom] = useState('')
+    const [age, setAge] = useState('')
+    const [telPatient, setTelPatient] = useState('Tel')
+    const [adresse, setAdresse] = useState('Adresse')
+    const [listePatient, setListePatient] = useState([])
+    const [trouver, setTrouver] = useState(false)
+    const [analyse, setAnalyse] = useState([])
+    const [analyseId, setAnalyseId] = useState(1)
+    const [tableau, setTableau] = useState([])
+
+
+    const handleKeyNom = (e) => {
+        setkeyNom(e.target.value)
+        if (keyNom.length > 4) {
+            axios.post('http://localhost:8000/api/recupere_un _patient', {
+                'nom_patient': keyNom
+            }).then((response) => {
+                var data = response.data
+                setTrouver(true)
+                setListePatient(data)
+                // console.log(adresse)
+            })
+        }
+        else {
+            setTrouver(false)
+            setAge('')
+            setAdresse('')
+            setTelPatient('')
+        }
+    }
+
+    const remplirChamp = (data) => {
+        setTrouver(false)
+        // console.log(data.nom_patient)
+        setAge(data.age_patient)
+        setAdresse(data.adresse)
+        setTelPatient(data.telephone_patient)
+        setkeyNom(data.nom_patient)
+    }
+
+    const searchFoundPatient = listePatient.map((data) => {
+        return <li key={data.id} className="list-group-item alert alert-dark" onClick={() => remplirChamp(data)}>{data.nom_patient}  {data.prenom_patient}</li>
+        // <span key={data.id}>{data.nom_patient} {data.prenom_patient}</span>
+    })
+
+
+
+    //Analyse Categoie
+
+    useEffect(() => {
+
+        axios.get('http://localhost:8000/api/liste_des_analyses')
+            .then((response) => {
+                var data = response.data
+                setAnalyse(data)
+            })
+
+    }, [])
+
+
+    const onChangeSelect = (e) => {
+        setAnalyseId(e.target.value)
+        // console.log(analyseId)
+    }
+
+
+
+
+    const handleAdd = () => {
+
+        console.log(analyseId)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <Fragment>
@@ -24,20 +112,6 @@ const Analyse = () => {
 
             </div>
 
-
-            {/* <div className="row">
-                <div className="form-group row  col-md-6">
-                    <label className="col-sm-3 col-form-label col-form-label-sm">Nom :</label>
-                    <div className="col-sm-9">
-                        <input type="text" className="form-control" placeholder="Nom Du Patient" />
-                    </div>
-                </div>
-
-            </div> */}
-
-
-
-
             <div className="row">
 
                 <div className="col-xl-12 col-lg-12">
@@ -45,49 +119,56 @@ const Analyse = () => {
                         <div className="card-header">
                             <h4 className="card-title">ANALYSE - PATIENT</h4>
                         </div>
+
+
                         <div className="card-body">
                             <div className="basic-form">
                                 <form>
-
                                     <label className="col-sm-3 col-form-label col-form-label-sm">Patient :</label>
                                     <div className="form-group row  col-md-12">
                                         <div className="col-sm-3">
-                                            <input type="text" className="form-control" placeholder="Prénom Du Patient" />
+                                            <input type="text" className="form-control" placeholder="Nom Du Patient" value={keyNom} onChange={handleKeyNom} />
                                         </div>
 
                                         <div className="col-sm-3">
-                                            <input type="text" className="form-control" placeholder="Age Du Patient" />
+                                            <input type="text" className="form-control" placeholder="Age Du Patient" value={age} onChange={(e) => setAge(e.target.value)} readOnly />
                                         </div>
 
                                         <div className="col-sm-3">
-                                            <input type="text" className="form-control" placeholder="Tel. Du Patient" />
+                                            <input type="text" className="form-control" placeholder="Tel. Du Patient" value={telPatient} onChange={(e) => setTelPatient(e.target.value)} readOnly />
                                         </div>
 
                                         <div className="col-sm-3">
-                                            <input type="text" className="form-control" placeholder="Adresse Du Patient" />
+                                            <input type="text" className="form-control" placeholder="Adresse Du Patient" value={adresse} onChange={(e) => setAdresse(e.target.value)} readOnly />
                                         </div>
+                                    </div>
+
+                                    <div className="form-group row col-sm-12">
+                                        <ul className="list-group  list-group-flush col-sm-8 ">
+                                            {trouver && searchFoundPatient}
+                                        </ul>
                                     </div>
 
 
                                     <hr className="mb-5" />
 
 
-
-
                                     <div className="form-group row">
-                                        <label className="col-sm-2 col-form-label" >Categorie :</label>
+                                        <label className="col-sm-2 col-form-label" >Analyse :</label>
                                         <div className="col-sm-4">
-                                            <select className="form-control">
-                                                <option defaultValue="Option 1">Option 1</option>
-                                                <option>Option 2</option>
-                                                <option>Option 3</option>
+                                            <select className="form-control" value={analyseId} onChange={(e) => onChangeSelect(e)}>
+                                                {
+                                                    analyse.map((data) => {
+                                                        return <option key={data.id} value={data.id}>{data.libelle_analyse}</option>
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                         <div className="col-sm-4">
                                             <input type="text" className="form-control" placeholder="Nom" autoComplete="off" />
                                         </div>
                                         <div className="col-sm-2">
-                                            <button type="button" className="btn btn-primary">+</button>
+                                            <button type="button" className="btn btn-primary" onClick={handleAdd}>+</button>
                                         </div>
                                     </div>
 

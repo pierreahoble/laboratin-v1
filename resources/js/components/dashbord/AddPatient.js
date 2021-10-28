@@ -48,7 +48,19 @@ const AddPatient = () => {
         }).then((response) => {
             // console.log(response)
             setSuccess(true)
-            setPatient(...data)
+            setPatient({ ...patient, [e.target.id]: '' });
+            setPatient({
+                'nom': '',
+                'prenom': '',
+                'adresse': '',
+                'telephone': '',
+                'age': '',
+                'nomAccompagnant': '',
+                'telephone': '',
+                'telAccompagnant': '',
+                'observation': ''
+            })
+            console.log('vidage')
         })
 
     }

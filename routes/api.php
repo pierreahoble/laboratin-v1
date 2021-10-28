@@ -30,6 +30,10 @@ Route::get('liste_categorie', [CategorieController::class,'liste_categorie']);
 
 //Add new analyse categorie
 Route::post('ajouter_analyse',[AnalyseController::class,'ajouter_analyse']);
+//Liste des analyses
+Route::get('liste_des_analyses',[AnalyseController::class,'liste_analyse']);
+//Recuperer Les categories d'une analyse
+Route::post('analyse_id_categorie',[AnalyseController::class,'analyse_categorie']);
 
 
 
@@ -37,5 +41,7 @@ Route::post('ajouter_analyse',[AnalyseController::class,'ajouter_analyse']);
 
 Route::post('ajouter_patient',[PatientController::class,'ajouter_patient']);
 
+//Recuperer un patient specifique par recherche 
+Route::post('recupere_un _patient', [PatientController::class,'recupere_un_patient']);
 
 

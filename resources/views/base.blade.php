@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CMS | Tableau de bord </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <link href="{{ asset('assets/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -35,7 +35,7 @@
         <!--**********************************
             Chat box End
         ***********************************-->
-      
+
         <!--**********************************
             Header start
         ***********************************-->
@@ -107,7 +107,7 @@
 
     <!-- Dashboard 1 -->
     {{-- <script src="{{ asset('assets/js/dashboard/dashboard-1.js') }}"></script> --}}
-   
+
 </body>
 
 <!-- Mirrored from eres.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Oct 2021 12:26:11 GMT -->
