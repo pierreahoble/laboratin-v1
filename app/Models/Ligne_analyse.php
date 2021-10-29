@@ -11,6 +11,10 @@ class Ligne_analyse extends Model
 
 
     protected $fillable = [
-        
+        'analyse_id',
+        'nature_analyse_id',
+        'prix_unitaire',
+        'quantite',
+        'montant'
     ];
 }

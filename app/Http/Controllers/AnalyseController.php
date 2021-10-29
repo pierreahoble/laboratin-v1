@@ -48,9 +48,21 @@ class AnalyseController extends Controller
     {
       $data = Categorie::join('nature_analyses','categories.id','nature_analyses.categorie_id')
                         ->where('nature_analyses.id',$request['id'])
-                        ->get(['nature_analyses.*','prix_unitaire','libelle_analyse','libelle_categorie','categorie_id']);
+                        ->get(['nature_analyses.*','libelle_categorie','categorie_id']);
 
-      return $data;
+      return response()->json($data, 200);
+    }
+
+    //Persistance des donnes analyse
+    public function add_analyse(REQUEST  $request)
+    {
+       return $request;
+       foreach ($request['data'] as  $value) {
+          # code...
+       }
+       $data = Ligne_analyse::create([
+
+       ]);
     }
 
 

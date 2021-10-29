@@ -25,7 +25,7 @@ const AddPatient = () => {
     const handleChange = (e) => {
         // e.preventDefault()
         setPatient({ ...patient, [e.target.id]: e.target.value });
-        // console.log(patient)
+        // console.log(patie    nt)
     }
 
 

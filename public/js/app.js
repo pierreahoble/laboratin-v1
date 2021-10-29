@@ -2698,7 +2698,7 @@ var AddPatient = function AddPatient() {
 
   var handleChange = function handleChange(e) {
     // e.preventDefault()
-    setPatient(_objectSpread(_objectSpread({}, patient), {}, _defineProperty({}, e.target.id, e.target.value))); // console.log(patient)
+    setPatient(_objectSpread(_objectSpread({}, patient), {}, _defineProperty({}, e.target.id, e.target.value))); // console.log(patie    nt)
   };
 
   var handleSubmit = function handleSubmit(e) {
@@ -3001,6 +3001,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3021,6 +3029,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Analyse = function Analyse() {
+  var montant = '';
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       keyNom = _useState2[0],
@@ -3036,41 +3046,86 @@ var Analyse = function Analyse() {
       telPatient = _useState6[0],
       setTelPatient = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Adresse'),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      adresse = _useState8[0],
-      setAdresse = _useState8[1];
+      patientId = _useState8[0],
+      setPatientId = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Adresse'),
       _useState10 = _slicedToArray(_useState9, 2),
-      listePatient = _useState10[0],
-      setListePatient = _useState10[1];
+      adresse = _useState10[0],
+      setAdresse = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      trouver = _useState12[0],
-      setTrouver = _useState12[1];
+      listePatient = _useState12[0],
+      setListePatient = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('0'),
       _useState14 = _slicedToArray(_useState13, 2),
-      analyse = _useState14[0],
-      setAnalyse = _useState14[1];
+      montantTotal = _useState14[0],
+      setMontantTotal = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      analyseId = _useState16[0],
-      setAnalyseId = _useState16[1];
+      trouver = _useState16[0],
+      setTrouver = _useState16[1];
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState18 = _slicedToArray(_useState17, 2),
-      tableau = _useState18[0],
-      setTableau = _useState18[1];
+      analyse = _useState18[0],
+      setAnalyse = _useState18[1];
+
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState20 = _slicedToArray(_useState19, 2),
+      analyseId = _useState20[0],
+      setAnalyseId = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState22 = _slicedToArray(_useState21, 2),
+      prixAnalyse = _useState22[0],
+      setPrixAnalyse = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState24 = _slicedToArray(_useState23, 2),
+      dataTrouver = _useState24[0],
+      setDataTrouver = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState26 = _slicedToArray(_useState25, 2),
+      tableauAnalyse = _useState26[0],
+      setTableauAnalyse = _useState26[1];
+
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState28 = _slicedToArray(_useState27, 2),
+      afficheTableau = _useState28[0],
+      setAfficheTableau = _useState28[1];
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState30 = _slicedToArray(_useState29, 2),
+      desablebtn = _useState30[0],
+      setDesablebtn = _useState30[1];
+
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState32 = _slicedToArray(_useState31, 2),
+      bool = _useState32[0],
+      setbool = _useState32[1];
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([1]),
+      _useState34 = _slicedToArray(_useState33, 2),
+      tabTemporaire = _useState34[0],
+      setTabTemporaire = _useState34[1];
+
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState36 = _slicedToArray(_useState35, 2),
+      succes = _useState36[0],
+      setSucces = _useState36[1];
 
   var handleKeyNom = function handleKeyNom(e) {
     setkeyNom(e.target.value);
 
     if (keyNom.length > 4) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/recupere_un _patient', {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/recupere_un_patient', {
         'nom_patient': keyNom
       }).then(function (response) {
         var data = response.data;
@@ -3086,8 +3141,8 @@ var Analyse = function Analyse() {
   };
 
   var remplirChamp = function remplirChamp(data) {
-    setTrouver(false); // console.log(data.nom_patient)
-
+    setTrouver(false);
+    setPatientId(data.id);
     setAge(data.age_patient);
     setAdresse(data.adresse);
     setTelPatient(data.telephone_patient);
@@ -3112,12 +3167,134 @@ var Analyse = function Analyse() {
   }, []);
 
   var onChangeSelect = function onChangeSelect(e) {
-    setAnalyseId(e.target.value); // console.log(analyseId)
+    setAnalyseId(e.target.value);
+    analyse.map(function (data) {
+      if (data.id == e.target.value) {
+        setPrixAnalyse(data.prix_unitaire);
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/analyse_id_categorie', {
+          'id': data.id
+        }).then(function (response) {
+          var resp = response.data;
+          tabTemporaire.length = 1;
+
+          if (resp.length > 0) {
+            // setTabTemporaire([...tabTemporaire, resp[0]])
+            setTableauAnalyse([].concat(_toConsumableArray(tableauAnalyse), [resp[0]]));
+            setDesablebtn(false);
+          }
+        });
+      }
+    });
   };
 
   var handleAdd = function handleAdd() {
-    console.log(analyseId);
-  };
+    var ficheTableau = tableauAnalyse.length > 0 ? tableauAnalyse.map(function (data, index) {
+      setMontantTotal(parseInt(montantTotal) + parseInt(data.prix_unitaire));
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+        children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+          children: index
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: data.libelle_categorie ? data.libelle_categorie : ''
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: data.libelle_analyse !== '' ? data.libelle_analyse : ''
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: "January 25"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          className: "color-danger",
+          children: data.prix_unitaire ? data.prix_unitaire : ''
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "btn btn-danger shadow btn-xs sharp",
+            type: "button",
+            onClick: function onClick() {
+              return suppAnalyse(index, data.prix_unitaire);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+              className: "fa fa-trash"
+            })
+          })
+        })]
+      }, index);
+    }) : '';
+    setAfficheTableau(ficheTableau);
+  }; //suppression dans le tableau des analyse 
+
+
+  var suppAnalyse = function suppAnalyse(index, mont) {
+    var montant = parseInt(montantTotal) - parseInt(mont);
+    tableauAnalyse.splice(index, 1);
+    handleAdd(); // alert(parseInt(montantTotal))
+
+    setMontantTotal(montant); // alert(montant)
+  }; //Envoie des infos formulaire
+
+
+  var sendInfo = function sendInfo(e) {
+    e.preventDefault();
+
+    if (patientId == null) {
+      setSucces(true);
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/add_analyse_categorie', {
+      patient_id: patientId,
+      montant: montantTotal,
+      data: tableauAnalyse
+    }).then(function (response) {
+      console.log(response);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }; //Message
+
+
+  var message = succes && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "container",
+    onClick: handleAlert,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "alert alert-primary alert-dismissible fade show",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("svg", {
+        viewBox: "0 0 24 24",
+        width: "24",
+        height: "24",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        fill: "none",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        className: "mr-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("circle", {
+          cx: "12",
+          cy: "12",
+          r: "10"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+          d: "M8 14s1.5 2 4 2 4-2 4-2"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("line", {
+          x1: "9",
+          y1: "9",
+          x2: "9.01",
+          y2: "9"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("line", {
+          x1: "15",
+          y1: "9",
+          x2: "15.01",
+          y2: "9"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+        children: "Succes!"
+      }), " Analyse enr\xE9gistr\xE9 avec succ\xE8s .", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+        type: "button",
+        className: "close h-100",
+        "data-dismiss": "alert",
+        "aria-label": "Close",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+            className: "mdi mdi-close"
+          })
+        })
+      })]
+    })
+  });
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3145,7 +3322,7 @@ var Analyse = function Analyse() {
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      }), message, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "col-xl-6",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "btn btn-primary",
@@ -3171,6 +3348,7 @@ var Analyse = function Analyse() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
               className: "basic-form",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                onSubmit: sendInfo,
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                   className: "col-sm-3 col-form-label col-form-label-sm",
                   children: "Patient :"
@@ -3183,7 +3361,8 @@ var Analyse = function Analyse() {
                       className: "form-control",
                       placeholder: "Nom Du Patient",
                       value: keyNom,
-                      onChange: handleKeyNom
+                      onChange: handleKeyNom,
+                      required: true
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-sm-3",
@@ -3237,32 +3416,40 @@ var Analyse = function Analyse() {
                     children: "Analyse :"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-sm-4",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
                       className: "form-control",
                       value: analyseId,
                       onChange: function onChange(e) {
                         return onChangeSelect(e);
                       },
-                      children: analyse.map(function (data) {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                        children: "Choisir l'analyse"
+                      }), analyse.map(function (data) {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                           value: data.id,
                           children: data.libelle_analyse
                         }, data.id);
-                      })
+                      })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-sm-4",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                       type: "text",
+                      value: prixAnalyse,
                       className: "form-control",
-                      placeholder: "Nom",
-                      autoComplete: "off"
+                      placeholder: "Prix",
+                      autoComplete: "off",
+                      onChange: function onChange(e) {
+                        return setPrixAnalyse(e.target.value);
+                      },
+                      readOnly: true
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-sm-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                       type: "button",
                       className: "btn btn-primary",
+                      disabled: desablebtn,
                       onClick: handleAdd,
                       children: "+"
                     })
@@ -3275,7 +3462,7 @@ var Analyse = function Analyse() {
                       className: "card-header",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
                         className: "card-title",
-                        children: "Tableau R\xE9capitulatif"
+                        children: "RECAPITULATIF DE L'ANALYSE"
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                       className: "card-body",
@@ -3288,37 +3475,41 @@ var Analyse = function Analyse() {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                                 children: "#"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-                                children: "Cat"
+                                children: "Cat\xE9gorie"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                                 children: "Analyse"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                                 children: "Date"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-                                children: "Price"
+                                children: "Prix"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                                children: "Action"
                               })]
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+                            id: "idTab",
+                            children: tableauAnalyse.length > 0 ? afficheTableau : ''
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tfoot", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-                                children: "1"
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                colSpan: "4"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                children: "Kolor Tea Shirt For Man"
+                                children: "Montant Total : "
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                                  className: "badge badge-primary light",
-                                  children: "Sale"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                children: "January 22"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                className: "color-primary",
-                                children: "$21.56"
+                                children: montantTotal + '  FCFA'
                               })]
                             })
                           })]
                         })
                       })
                     })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                  className: "col-sm-10",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                    type: "submit",
+                    className: "btn btn-primary",
+                    children: "Enr\xE9gistr\xE9"
                   })
                 })]
               })

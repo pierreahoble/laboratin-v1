@@ -35,6 +35,12 @@ Route::get('liste_des_analyses',[AnalyseController::class,'liste_analyse']);
 //Recuperer Les categories d'une analyse
 Route::post('analyse_id_categorie',[AnalyseController::class,'analyse_categorie']);
 
+//Persistance des donnes de l'analyse
+Route::post('add_analyse_categorie',[AnalyseController::class,'add_analyse']);
+
+
+
+
 
 
 //Ajouter un patient 
@@ -42,6 +48,6 @@ Route::post('analyse_id_categorie',[AnalyseController::class,'analyse_categorie'
 Route::post('ajouter_patient',[PatientController::class,'ajouter_patient']);
 
 //Recuperer un patient specifique par recherche 
-Route::post('recupere_un _patient', [PatientController::class,'recupere_un_patient']);
+Route::post('recupere_un_patient', [PatientController::class,'recupere_un_patient']);
 
 
