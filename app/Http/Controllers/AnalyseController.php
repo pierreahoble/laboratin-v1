@@ -56,13 +56,23 @@ class AnalyseController extends Controller
     //Persistance des donnes analyse
     public function add_analyse(REQUEST  $request)
     {
-       return $request;
-       foreach ($request['data'] as  $value) {
-          # code...
-       }
-       $data = Ligne_analyse::create([
 
-       ]);
+      
+      return $request['data'];
+
+
+      $success='SUCCES';
+       foreach ($request[0] as $key =>  $value) {
+          $data = Ligne_analyse::create([
+            'patient_id	'=>$value('patient_id'),
+            'analyse_id'=>$value[key]->id,
+            'nature_analyse_id'=>$value[key]->categorie_id,
+            'prix_unitaire'=>$value[key]->prix_unitaire,
+            'quantite'=>1,
+            'montant'=>$value('montant')
+          ]);
+       }
+       return response()->json($success, 200);
     }
 
 

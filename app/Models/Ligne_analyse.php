@@ -15,6 +15,7 @@ class Ligne_analyse extends Model
         'nature_analyse_id',
         'prix_unitaire',
         'quantite',
-        'montant'
+        'montant',
+        'patient_id	'
     ];
 }
