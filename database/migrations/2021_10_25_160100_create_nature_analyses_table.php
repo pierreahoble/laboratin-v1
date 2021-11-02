@@ -15,7 +15,7 @@ class CreateNatureAnalysesTable extends Migration
     {
         Schema::create('nature_analyses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('categorie_id');
+            $table->unsignedBigInteger('categorie_id')->nullable();
             $table->foreign('categorie_id')->references('id')->on('categories');
             $table->string('libelle_analyse', 100)->nullable()->default('text');
             $table->string('prix_unitaire', 100)->nullable()->default('text');

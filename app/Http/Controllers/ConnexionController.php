@@ -28,4 +28,9 @@ class ConnexionController extends Controller
             return  redirect()->back();
         }
     }
+
+    public function example()
+    {
+        return view('exemple');
+    }
 }

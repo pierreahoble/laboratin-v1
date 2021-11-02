@@ -32,7 +32,8 @@ class PatientController extends Controller
             'nom_accompagnant_patient'=>request('nom'),
             'telephone_accompagnant_patient'=>request('telAccompagnant'),
             'observation'=>request('observation'),
-            'email_patient'=>'patient@gmail.com'
+            'email_patient'=>'patient@gmail.com',
+            'adresse'=>request('adresse')
         ]);
         return response()->json($data, 200);
     }

@@ -20,3 +20,5 @@ require('./components/dashbord/AddCategorie');
 require('./components/dashbord/ListeCategorie');
 require('./components/dashbord/AddAnalyse');
 require('./components/dashbord/ListeAnalyse');
+require('./components/dashbord/AnalysePatient');
+require('./components/dashbord/RecuPatient')

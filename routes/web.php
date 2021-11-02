@@ -31,6 +31,12 @@ Route::get('ad', function () {
    ]);
 });
 
+
+
+Route::get('/exemple',[ConnexionController::class,'example']);
+
+
+
 ################################################################
 //Connexion
 Route::get('/',[ConnexionController::class,'index']);
@@ -63,3 +69,10 @@ Route::get('listecategorie',[CategorieController::class,'liste']);
 Route::get('ajouteruneanalyse',[AnalyseController::class,'index']);
 
 Route::get('listeanalyse', [AnalyseController::class,'liste']);
+
+
+#######
+Route::get('ajouteruneanalyse', [AnalyseController::class,'nouvelle_analyse']);
+
+######Reçu du patient
+Route::get('recudupatient',[AnalyseController::class,'recu_patient']);

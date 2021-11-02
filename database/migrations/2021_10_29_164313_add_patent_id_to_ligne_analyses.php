@@ -14,7 +14,7 @@ class AddPatentIdToLigneAnalyses extends Migration
     public function up()
     {
         Schema::table('ligne_analyses', function (Blueprint $table) {
-            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('patient_id')->nullable();
             $table->foreign('patient_id')->references('id')->on('patients');
         });
     }

@@ -17,6 +17,7 @@ class Patient extends Model
         'nom_accompagnant_patient',
         'telephone_accompagnant_patient',
         'observation',
-        'email_patient'
+        'email_patient',
+        'adresse'
     ];
 }

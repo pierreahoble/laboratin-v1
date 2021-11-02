@@ -16,7 +16,7 @@ class CreateAnalysesTable extends Migration
         Schema::create('analyses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code', 100)->nullable()->default('text');
-            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('patient_id')->nullable();
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->string('montant', 100)->nullable()->default('text');
             $table->timestamps();

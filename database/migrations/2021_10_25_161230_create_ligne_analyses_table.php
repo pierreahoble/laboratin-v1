@@ -15,16 +15,14 @@ class CreateLigneAnalysesTable extends Migration
     {
         Schema::create('ligne_analyses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('analyse_id');
+            $table->unsignedBigInteger('analyse_id')->nullable();
             $table->foreign('analyse_id')->references('id')->on('analyses');
-            $table->unsignedBigInteger('nature_analyse_id');
+            $table->unsignedBigInteger('nature_analyse_id')->nullable();
             $table->foreign('nature_analyse_id')->references('id')->on('nature_analyses');
             $table->string('prix_unitaire', 100)->nullable()->default('text');
             $table->string('quantite', 100)->nullable()->default('text');
             $table->string('montant', 100)->nullable()->default('text');
             $table->softDeletes();
-
-
 
             $table->timestamps();
         });

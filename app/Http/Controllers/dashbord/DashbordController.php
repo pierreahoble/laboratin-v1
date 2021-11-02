@@ -9,7 +9,7 @@ class DashbordController extends Controller
 {
     public function index()
     {
-        return view('dashbord.analyse');
+        return view('dashbord.analysepatient');
     }
 
 

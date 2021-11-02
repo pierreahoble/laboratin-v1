@@ -2089,6 +2089,10 @@ __webpack_require__(/*! ./components/dashbord/AddAnalyse */ "./resources/js/comp
 
 __webpack_require__(/*! ./components/dashbord/ListeAnalyse */ "./resources/js/components/dashbord/ListeAnalyse.js");
 
+__webpack_require__(/*! ./components/dashbord/AnalysePatient */ "./resources/js/components/dashbord/AnalysePatient.js");
+
+__webpack_require__(/*! ./components/dashbord/RecuPatient */ "./resources/js/components/dashbord/RecuPatient.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2149,37 +2153,169 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
 
 
-function Example() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "container",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "row justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "col-md-8",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-          className: "card",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "card-header",
-            children: "Example Component"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-            className: "card-body",
-            children: "Je suis un composent  example !"
+
+var Example = /*#__PURE__*/function (_Component) {
+  _inherits(Example, _Component);
+
+  var _super = _createSuper(Example);
+
+  function Example(props) {
+    var _this;
+
+    _classCallCheck(this, Example);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      message: '',
+      items: []
+    };
+    return _this;
+  }
+
+  _createClass(Example, [{
+    key: "updateMessage",
+    value: function updateMessage(event) {
+      this.setState({
+        message: event.target.value
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      var items = this.state.items;
+      items.push(this.state.message);
+      this.setState({
+        items: items
+      });
+    }
+  }, {
+    key: "renderRows",
+    value: function renderRows() {
+      var context = this;
+      return this.state.items.map(function (data, i) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+            scope: "row",
+            children: "1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+            children: data
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+            children: data
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
+            children: data
           })]
-        })
-      })
-    })
-  });
-}
+        }, i);
+      });
+    }
+  }, {
+    key: "handleItemChanged",
+    value: function handleItemChanged(i, event) {
+      var items = this.state.items;
+      items[i] = event.target.value;
+      this.setState({
+        items: items
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "container",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+            children: "Ajouter a un tableau"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("table", {
+          className: "table table-striped",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                scope: "col",
+                children: "#"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                scope: "col",
+                children: "First"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                scope: "col",
+                children: "Last"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
+                scope: "col",
+                children: "Handle"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("tbody", {
+            children: this.renderRows()
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                "for": "exampleInputEmail1",
+                children: "Email address"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                type: "text",
+                className: "form-control",
+                placeholder: "Message",
+                value: this.state.message,
+                onChange: this.updateMessage.bind(this)
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                "for": "exampleInputPassword1",
+                children: "Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                type: "password",
+                className: "form-control",
+                id: "exampleInputPassword1",
+                placeholder: "Password"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+              type: "button",
+              className: "btn btn-primary",
+              onClick: this.handleClick.bind(this),
+              children: "add"
+            })]
+          })
+        })]
+      });
+    }
+  }]);
+
+  return Example;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
-if (document.getElementById('App')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Example, {}), document.getElementById('App'));
+if (document.getElementById('Example')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Example, {}), document.getElementById('Example'));
 }
 
 /***/ }),
@@ -3038,93 +3174,110 @@ var Analyse = function Analyse() {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      age = _useState4[0],
-      setAge = _useState4[1];
+      nomPatient = _useState4[0],
+      setNomPatient = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Tel'),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      telPatient = _useState6[0],
-      setTelPatient = _useState6[1];
+      prenom = _useState6[0],
+      setPrenom = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      patientId = _useState8[0],
-      setPatientId = _useState8[1];
+      age = _useState8[0],
+      setAge = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Adresse'),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      adresse = _useState10[0],
-      setAdresse = _useState10[1];
+      nomAccompagant = _useState10[0],
+      setNomAccompagant = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      listePatient = _useState12[0],
-      setListePatient = _useState12[1];
+      telAcompagnant = _useState12[0],
+      setTelAcompagnant = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('0'),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState14 = _slicedToArray(_useState13, 2),
-      montantTotal = _useState14[0],
-      setMontantTotal = _useState14[1];
+      observation = _useState14[0],
+      setObservation = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('Tel'),
       _useState16 = _slicedToArray(_useState15, 2),
-      trouver = _useState16[0],
-      setTrouver = _useState16[1];
+      telPatient = _useState16[0],
+      setTelPatient = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState18 = _slicedToArray(_useState17, 2),
-      analyse = _useState18[0],
-      setAnalyse = _useState18[1];
+      patientId = _useState18[0],
+      setPatientId = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState20 = _slicedToArray(_useState19, 2),
-      analyseId = _useState20[0],
-      setAnalyseId = _useState20[1];
+      adresse = _useState20[0],
+      setAdresse = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState22 = _slicedToArray(_useState21, 2),
-      prixAnalyse = _useState22[0],
-      setPrixAnalyse = _useState22[1];
+      listePatient = _useState22[0],
+      setListePatient = _useState22[1];
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('0'),
       _useState24 = _slicedToArray(_useState23, 2),
-      dataTrouver = _useState24[0],
-      setDataTrouver = _useState24[1];
+      montantTotal = _useState24[0],
+      setMontantTotal = _useState24[1];
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState26 = _slicedToArray(_useState25, 2),
-      tableauAnalyse = _useState26[0],
-      setTableauAnalyse = _useState26[1];
+      trouver = _useState26[0],
+      setTrouver = _useState26[1];
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState28 = _slicedToArray(_useState27, 2),
-      afficheTableau = _useState28[0],
-      setAfficheTableau = _useState28[1];
+      analyse = _useState28[0],
+      setAnalyse = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState30 = _slicedToArray(_useState29, 2),
-      desablebtn = _useState30[0],
-      setDesablebtn = _useState30[1];
+      analyseId = _useState30[0],
+      setAnalyseId = _useState30[1];
 
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState32 = _slicedToArray(_useState31, 2),
-      bool = _useState32[0],
-      setbool = _useState32[1];
+      prixAnalyse = _useState32[0],
+      setPrixAnalyse = _useState32[1];
 
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([1]),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState34 = _slicedToArray(_useState33, 2),
-      tabTemporaire = _useState34[0],
-      setTabTemporaire = _useState34[1];
+      tableauAnalyse = _useState34[0],
+      setTableauAnalyse = _useState34[1];
 
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState36 = _slicedToArray(_useState35, 2),
-      succes = _useState36[0],
-      setSucces = _useState36[1];
+      afficheTableau = _useState36[0],
+      setAfficheTableau = _useState36[1];
+
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState38 = _slicedToArray(_useState37, 2),
+      desablebtn = _useState38[0],
+      setDesablebtn = _useState38[1];
+
+  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState40 = _slicedToArray(_useState39, 2),
+      succes = _useState40[0],
+      setSucces = _useState40[1];
+
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState42 = _slicedToArray(_useState41, 2),
+      tablOne = _useState42[0],
+      setTablOne = _useState42[1]; //Recherche du patient saisi 
+
 
   var handleKeyNom = function handleKeyNom(e) {
+    console.log(e.target.value);
     setkeyNom(e.target.value);
 
-    if (keyNom.length > 4) {
+    if (keyNom.length > 1) {
       axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/recupere_un_patient', {
         'nom_patient': keyNom
       }).then(function (response) {
@@ -3134,20 +3287,25 @@ var Analyse = function Analyse() {
       });
     } else {
       setTrouver(false);
+      setkeyNom('');
       setAge('');
       setAdresse('');
       setTelPatient('');
+      setTelPatient('');
     }
-  };
+  }; //Remplisasge des donnes du formulaire
+
 
   var remplirChamp = function remplirChamp(data) {
+    var nom = data.nom_patient + ' ' + data.prenom_patient;
     setTrouver(false);
     setPatientId(data.id);
     setAge(data.age_patient);
     setAdresse(data.adresse);
     setTelPatient(data.telephone_patient);
-    setkeyNom(data.nom_patient);
-  };
+    setkeyNom(nom);
+  }; //Affichage de la recherche patient
+
 
   var searchFoundPatient = listePatient.map(function (data) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
@@ -3157,38 +3315,47 @@ var Analyse = function Analyse() {
       },
       children: [data.nom_patient, "  ", data.prenom_patient]
     }, data.id); // <span key={data.id}>{data.nom_patient} {data.prenom_patient}</span>
-  }); //Analyse Categoie
+  }); //Recuperation de l'analyse Categoie
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_2___default().get('http://localhost:8000/api/liste_des_analyses').then(function (response) {
-      var data = response.data;
+      var data = response.data; // console.log(data)
+
       setAnalyse(data);
     });
-  }, []);
+  }, []); //Selection du l'analyse
 
   var onChangeSelect = function onChangeSelect(e) {
     setAnalyseId(e.target.value);
-    analyse.map(function (data) {
-      if (data.id == e.target.value) {
-        setPrixAnalyse(data.prix_unitaire);
-        axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/analyse_id_categorie', {
-          'id': data.id
-        }).then(function (response) {
-          var resp = response.data;
-          tabTemporaire.length = 1;
+    setPrixAnalyse(analyse[e.target.value].prix_unitaire);
 
-          if (resp.length > 0) {
-            // setTabTemporaire([...tabTemporaire, resp[0]])
-            setTableauAnalyse([].concat(_toConsumableArray(tableauAnalyse), [resp[0]]));
-            setDesablebtn(false);
-          }
-        });
-      }
-    });
-  };
+    if (!tableauAnalyse.includes(analyse[e.target.value])) {
+      console.log('tabOne 1');
+      setTablOne([].concat(_toConsumableArray(tablOne), [analyse[e.target.value]]));
+      console.log('tabOne 2');
+      console.log(tablOne);
+      setDesablebtn(false);
+    } else {
+      alert('Vous avez deja ajouter cet element a votre liste');
+    }
+  }; //Boutonn ajouter les elements au tableau
+
 
   var handleAdd = function handleAdd() {
-    var ficheTableau = tableauAnalyse.length > 0 ? tableauAnalyse.map(function (data, index) {
+    if (analyseId == '') {
+      alert('choisissez la categorie');
+    } else if (tablOne.length > 0) {
+      setTableauAnalyse([].concat(_toConsumableArray(tableauAnalyse), [tablOne[0]]));
+      setTablOne([]);
+      setDesablebtn(false);
+    }
+
+    afficheerLesDonnees();
+  }; //Aficher les donnees 
+
+
+  var afficheerLesDonnees = function afficheerLesDonnees() {
+    return tableauAnalyse.map(function (data, index) {
       setMontantTotal(parseInt(montantTotal) + parseInt(data.prix_unitaire));
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
         children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
@@ -3215,8 +3382,7 @@ var Analyse = function Analyse() {
           })
         })]
       }, index);
-    }) : '';
-    setAfficheTableau(ficheTableau);
+    });
   }; //suppression dans le tableau des analyse 
 
 
@@ -3237,14 +3403,55 @@ var Analyse = function Analyse() {
     }
 
     axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/add_analyse_categorie', {
-      patient_id: patientId,
-      montant: montantTotal,
-      data: tableauAnalyse
+      'patient_id': patientId,
+      'montant': montantTotal,
+      'data': tableauAnalyse
     }).then(function (response) {
-      console.log(response);
+      if (response.data == 'SUCCES') {
+        setSucces(true);
+        setkeyNom('');
+        setAge('');
+        setAdresse('');
+        setTelPatient('');
+        setMontantTotal('');
+        setAfficheTableau('');
+        setTableauAnalyse('');
+        setDesablebtn(true);
+      }
     })["catch"](function (error) {
       console.log(error);
     });
+  };
+
+  var handleAlert = function handleAlert() {
+    setSucces(false);
+  };
+
+  var submitModal = function submitModal(e) {
+    e.preventDefault();
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/ajouter_patient', {
+      'nom': nomPatient,
+      'prenom': prenom,
+      'adresse': adresse,
+      'telephone': telPatient,
+      'age': age,
+      'nomAccompagnant': nomAccompagant,
+      'telAccompagnant': telAcompagnant,
+      'observation': observation
+    }).then(function (response) {
+      var data = response.data;
+      setkeyNom(data.nom_patient);
+      setPatientId(data.id);
+      setAge(data.age_patient);
+      setAdresse(data.adresse);
+      setTelPatient(data.telephone_patient);
+      closeModal;
+    });
+  }; //close Modal
+
+
+  var closeModal = function closeModal() {
+    setVisible(true);
   }; //Message
 
 
@@ -3424,9 +3631,9 @@ var Analyse = function Analyse() {
                       },
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
                         children: "Choisir l'analyse"
-                      }), analyse.map(function (data) {
+                      }), analyse.map(function (data, index) {
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                          value: data.id,
+                          value: index,
                           children: data.libelle_analyse
                         }, data.id);
                       })]
@@ -3488,7 +3695,9 @@ var Analyse = function Analyse() {
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
                             id: "idTab",
-                            children: tableauAnalyse.length > 0 ? afficheTableau : ''
+                            children: function children() {
+                              return afficheerLesDonnees;
+                            }
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tfoot", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
@@ -3520,6 +3729,9 @@ var Analyse = function Analyse() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "modal fade bd-example-modal-lg",
       id: "basicModal",
+      onKeyDown: function onKeyDown() {
+        return closeModal;
+      },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "modal-dialog modal-lg",
         role: "document",
@@ -3547,6 +3759,7 @@ var Analyse = function Analyse() {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                   className: "basic-form",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                    onSubmit: submitModal,
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                       className: "form-group row",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
@@ -3557,7 +3770,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: "Nom Du Patient"
+                          placeholder: "Nom Du Patient",
+                          required: true,
+                          value: nomPatient,
+                          onChange: function onChange(e) {
+                            return setNomPatient(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3570,7 +3788,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: " Pr\xE9nom Du Patient"
+                          placeholder: " Pr\xE9nom Du Patient",
+                          required: true,
+                          value: prenom,
+                          onChange: function onChange(e) {
+                            return setPrenom(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3583,7 +3806,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: " Adresse Du Patient"
+                          placeholder: " Adresse Du Patient",
+                          required: true,
+                          value: adresse,
+                          onChange: function onChange(e) {
+                            return setAdresse(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3594,9 +3822,14 @@ var Analyse = function Analyse() {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                         className: "col-sm-8",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                          type: "text",
+                          type: "number",
                           className: "form-control",
-                          placeholder: " Tel Du Patient"
+                          placeholder: " Tel Du Patient",
+                          required: true,
+                          value: telPatient,
+                          onChange: function onChange(e) {
+                            return setTelPatient(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3609,7 +3842,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: " Age Du Patient"
+                          placeholder: " Age Du Patient",
+                          required: true,
+                          value: age,
+                          onChange: function onChange(e) {
+                            return setAge(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3622,7 +3860,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: " Accompagnant Du Patient"
+                          placeholder: " Accompagnant Du Patient",
+                          required: true,
+                          value: nomAccompagant,
+                          onChange: function onChange(e) {
+                            return setNomAccompagant(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3635,7 +3878,12 @@ var Analyse = function Analyse() {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                           type: "text",
                           className: "form-control",
-                          placeholder: " Tel Accompagnant Du Patient"
+                          placeholder: " Tel Accompagnant Du Patient",
+                          required: true,
+                          value: telAcompagnant,
+                          onChange: function onChange(e) {
+                            return setTelAcompagnant(e.target.value);
+                          }
                         })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3643,12 +3891,16 @@ var Analyse = function Analyse() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                         className: "col-sm-4 col-form-label",
                         children: "Obserrvation  :"
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                         className: "col-sm-8",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
                           className: "form-control",
-                          placeholder: "Observation"
-                        }), "                                                "]
+                          placeholder: "Observation",
+                          value: observation,
+                          onChange: function onChange(e) {
+                            return setObservation(e.target.value);
+                          }
+                        })
                       })]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                       className: "modal-footer",
@@ -3658,7 +3910,7 @@ var Analyse = function Analyse() {
                         "data-dismiss": "modal",
                         children: "Fermer"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                        type: "button",
+                        type: "submit",
                         className: "btn btn-primary",
                         children: "Sauvegarder"
                       })]
@@ -3678,6 +3930,730 @@ var Analyse = function Analyse() {
 
 if (document.getElementById('Analyse')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Analyse, {}), document.getElementById('Analyse'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/dashbord/AnalysePatient.js":
+/*!************************************************************!*\
+  !*** ./resources/js/components/dashbord/AnalysePatient.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'react-toast'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+var AnalysePatient = /*#__PURE__*/function (_Component) {
+  _inherits(AnalysePatient, _Component);
+
+  var _super = _createSuper(AnalysePatient);
+
+  function AnalysePatient(props) {
+    var _this;
+
+    _classCallCheck(this, AnalysePatient);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "remplirChamp", function (index) {
+      var data = _this.state.listePatient[index];
+      var nom = data.nom_patient + ' ' + data.prenom_patient; // console.log(data)
+
+      _this.setState({
+        agePatient: data.age_patient,
+        telPatient: data.telephone_patient,
+        adressePatient: data.adresse,
+        nomPatient: nom,
+        patientId: data.id,
+        trouver: false
+      });
+    });
+
+    _this.state = {
+      analyseId: '',
+      prixUnnitaire: '',
+      montantTotal: 0,
+      nomPatient: '',
+      agePatient: '',
+      telPatient: '',
+      adressePatient: '',
+      patientId: '',
+      prenomPatient: '',
+      nomAccompagant: '',
+      telAccompagnant: '',
+      observation: '',
+      trouver: false,
+      analyses: [],
+      message: '',
+      tabOne: [],
+      tabAnalyse: [],
+      listePatient: []
+    };
+    return _this;
+  }
+
+  _createClass(AnalysePatient, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('http://localhost:8000/api/liste_des_analyses').then(function (response) {
+        var data = response.data;
+
+        _this2.setState({
+          analyses: data
+        });
+      });
+    } //Checker a la modfication du select
+
+  }, {
+    key: "onChangeSelect",
+    value: function onChangeSelect(e) {
+      if (e.target.value != "Choisir l'analyse") {
+        this.setState({
+          analyseId: e.target.value,
+          prixUnnitaire: this.state.analyses[e.target.value].prix_unitaire,
+          tabOne: this.state.analyses[e.target.value]
+        });
+      } // console.log(this.state.tabOne)
+
+    } //Ajouter dans le tableau
+
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      var monT = this.state.montantTotal;
+      var data = this.state.tabAnalyse;
+      monT = parseInt(monT) + parseInt(this.state.prixUnnitaire);
+
+      if (!_.isEmpty(this.state.tabOne) && !data.includes(this.state.tabOne)) {
+        data.push(this.state.tabOne);
+        this.setState({
+          tabAnalyse: data,
+          montantTotal: parseInt(monT),
+          tabOne: []
+        });
+      } else {
+        alert('Vous devez selectionner une autre analyse ou cet analyse existe deja dans votre selection');
+        this.setState({
+          tabOne: []
+        });
+      }
+    } //Suppression
+
+  }, {
+    key: "suppAnalyse",
+    value: function suppAnalyse(index) {
+      var monT = this.state.montantTotal;
+      var prix = this.state.tabAnalyse[index].prix_unitaire;
+      monT = parseInt(monT) - parseInt(prix);
+      var data = this.state.tabAnalyse;
+      data.splice(index, 1);
+      this.setState({
+        tabAnalyse: data,
+        montantTotal: parseInt(monT)
+      });
+    } //Changer le nom
+
+  }, {
+    key: "onChangeNom",
+    value: function onChangeNom(e) {
+      var _this3 = this;
+
+      this.setState({
+        nomPatient: e.target.value
+      });
+
+      if (this.state.nomPatient.length > 1) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/recupere_un_patient', {
+          'nom_patient': this.state.nomPatient
+        }).then(function (response) {
+          var data = response.data;
+
+          _this3.setState({
+            trouver: true,
+            listePatient: data
+          });
+        });
+      }
+    } //Remplir les champs de façon automatique
+
+  }, {
+    key: "listeDesPatients",
+    value: //Liste des patient trouves
+    function listeDesPatients() {
+      var context = this;
+
+      if (this.state.trouver) {
+        return this.state.listePatient.map(function (data, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+            className: "list-group-item alert alert-dark",
+            onClick: context.remplirChamp.bind(context, index),
+            children: [data.nom_patient, "  ", data.prenom_patient]
+          }, data.id); // <span key={data.id}>{data.nom_patient} {data.prenom_patient}</span>
+        });
+      }
+    } //Envoyer les informations
+
+  }, {
+    key: "sendInfo",
+    value: function sendInfo(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+
+      if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/add_analyse_categorie', {
+          'patient_id': this.state.patientId,
+          'montant': this.state.montantTotal,
+          'data': this.state.tabAnalyse
+        }).then(function (response) {
+          if (response.data == 'SUCCES') {
+            _this4.setState({
+              agePatient: '',
+              telPatient: '',
+              adressePatient: '',
+              nomPatient: '',
+              patientId: '',
+              tabAnalyse: []
+            });
+          }
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      } else {
+        alert("Verifiez que vous avez saisi un patient et que la liste de du tableau n'est pas vide ");
+      }
+    } //Enregistre un nouveau patient
+
+  }, {
+    key: "submitpatient",
+    value: function submitpatient(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/ajouter_patient', {
+        'nom': this.state.nomPatient,
+        'prenom': this.state.prenomPatient,
+        'adresse': this.state.adressePatient,
+        'telephone': this.state.telPatient,
+        'age': this.state.agePatient,
+        'nomAccompagnant': this.state.nomAccompagant,
+        'telAccompagnant': this.state.telAccompagnant,
+        'observation': this.state.observation
+      }).then(function (response) {
+        var data = response.data;
+
+        _this5.setState({
+          agePatient: data.age_patient,
+          observation: '',
+          telAccompagnant: '',
+          nomAccompagant: '',
+          telPatient: data.telephone_patient,
+          adressePatient: data.adresse,
+          nomPatient: data.nom_patient,
+          patientId: data.id
+        });
+      });
+    } //Liste des analyse choisir dans le tableau
+
+  }, {
+    key: "renderRows",
+    value: function renderRows() {
+      var context = this;
+      return this.state.tabAnalyse.map(function (data, index) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+            children: index
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: data.libelle_categorie
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+            children: [data.libelle_analyse, " "]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            className: "color-danger",
+            children: data.prix_unitaire
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              className: "btn btn-danger shadow btn-xs sharp",
+              type: "button",
+              onClick: context.suppAnalyse.bind(context, index),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                className: "fa fa-trash"
+              })
+            })
+          })]
+        }, index);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "row",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-xl-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "page-titles",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("ol", {
+                  className: "breadcrumb",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                    className: "breadcrumb-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                      href: "#",
+                      children: "Formulaire"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                    className: "breadcrumb-item active",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                      href: "#",
+                      children: "Analyse D'un Patient"
+                    })
+                  })]
+                })
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-xl-6",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              className: "btn btn-primary",
+              "data-toggle": "modal",
+              "data-target": "#basicModal",
+              children: "Ajouter Un Nouveau Patient"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-xl-12 col-lg-12",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "card",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-header",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                  className: "card-title",
+                  children: "ANALYSE - PATIENT"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-body",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "basic-form",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+                    onSubmit: this.sendInfo.bind(this),
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                      className: "col-sm-3 col-form-label col-form-label-sm",
+                      children: "Patient :"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "form-group row  col-md-12",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          type: "text",
+                          className: "form-control",
+                          placeholder: "Nom Du Patient",
+                          required: true,
+                          value: this.state.nomPatient,
+                          onChange: this.onChangeNom.bind(this)
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          type: "text",
+                          className: "form-control",
+                          placeholder: "Age Du Patient",
+                          readOnly: true,
+                          value: this.state.agePatient
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          type: "text",
+                          className: "form-control",
+                          placeholder: "Tel. Du Patient",
+                          readOnly: true,
+                          value: this.state.telPatient
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          type: "text",
+                          className: "form-control",
+                          placeholder: "Adresse Du Patient",
+                          readOnly: true,
+                          value: this.state.adressePatient
+                        })
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                      className: "form-group row col-sm-12",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+                        className: "list-group  list-group-flush col-sm-8 ",
+                        children: this.listeDesPatients()
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
+                      className: "mb-5"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "form-group row",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                        className: "col-sm-2 col-form-label",
+                        children: "Analyse :"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-4",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                          className: "form-control",
+                          value: this.state.analyseId,
+                          onChange: this.onChangeSelect.bind(this),
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                            children: "Choisir l'analyse"
+                          }), this.state.analyses.map(function (data, index) {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                              value: index,
+                              children: data.libelle_analyse
+                            }, data.id);
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-4",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                          type: "text",
+                          className: "form-control",
+                          placeholder: "Prix",
+                          autoComplete: "off",
+                          readOnly: true,
+                          value: this.state.prixUnnitaire
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        className: "col-sm-2",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                          type: "button",
+                          className: "btn btn-primary",
+                          onClick: this.handleClick.bind(this),
+                          children: "+"
+                        })
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                      className: "col-lg-12",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                        className: "card",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "card-header",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                            className: "card-title",
+                            children: "RECAPITULATIF DE L'ANALYSE"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "card-body",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "table-responsive",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                              className: "table table-hover table-responsive-sm",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                                    children: "#"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                                    children: "Cat\xE9gorie"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                                    children: "Analyse"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                                    children: "Prix"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                                    children: "Action"
+                                  })]
+                                })
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                                id: "idTab",
+                                children: this.renderRows()
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tfoot", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                    colSpan: "3"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                    children: "Montant Total : "
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                    children: this.state.montantTotal + '  FCFA'
+                                  })]
+                                })
+                              })]
+                            })
+                          })
+                        })]
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                      className: "col-sm-10",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                        type: "submit",
+                        className: "btn btn-primary",
+                        children: "Enr\xE9gistr\xE9"
+                      })
+                    })]
+                  })
+                })
+              })]
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "modal fade bd-example-modal-lg",
+          id: "basicModal",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "modal-dialog modal-lg",
+            role: "document",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "modal-content",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "modal-header",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+                  className: "modal-title",
+                  children: "Ajout D'un Nouveau Patient"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                  type: "button",
+                  className: "close",
+                  "data-dismiss": "modal",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                    children: "\xD7"
+                  })
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "modal-body",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "col-xl-12 col-lg-12",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "card-body",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                      className: "basic-form",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+                        onSubmit: this.submitpatient.bind(this),
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: "Nom :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: "Nom Du Patient",
+                              required: true,
+                              value: this.state.nomPatient,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  nomPatient: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: " Pr\xE9nom :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: " Pr\xE9nom Du Patient",
+                              required: true,
+                              value: this.state.prenomPatient,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  prenomPatient: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: " Adresse :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: " Adresse Du Patient",
+                              required: true,
+                              value: this.state.adressePatient,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  adressePatient: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: " Tel :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "number",
+                              className: "form-control",
+                              placeholder: " Tel Du Patient",
+                              required: true,
+                              value: this.state.telPatient,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  telPatient: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: " Age  :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: " Age Du Patient",
+                              required: true,
+                              value: this.state.agePatient,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  agePatient: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: " Accompagnant  :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: " Accompagnant Du Patient",
+                              required: true,
+                              value: this.state.nomAccompagant,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  nomAccompagant: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: "Tel. Accompagnant  :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
+                              className: "form-control",
+                              placeholder: " Tel Accompagnant Du Patient",
+                              required: true,
+                              value: this.state.telAccompagnant,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  telAccompagnant: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "form-group row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                            className: "col-sm-4 col-form-label",
+                            children: "Obserrvation  :"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                            className: "col-sm-8",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
+                              className: "form-control",
+                              placeholder: "Observation",
+                              value: this.state.observation,
+                              onChange: function onChange(e) {
+                                return _this6.setState({
+                                  observation: e.target.value
+                                });
+                              }
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "modal-footer",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                            type: "button",
+                            className: "btn btn-danger light",
+                            "data-dismiss": "modal",
+                            children: "Fermer"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                            type: "submit",
+                            className: "btn btn-primary",
+                            children: "Sauvegarder"
+                          })]
+                        })]
+                      })
+                    })
+                  })
+                })
+              })]
+            })
+          })
+        })]
+      });
+    }
+  }]);
+
+  return AnalysePatient;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AnalysePatient);
+
+if (document.getElementById('analysePatient')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AnalysePatient, {}), document.getElementById('analysePatient'));
 }
 
 /***/ }),
@@ -6360,6 +7336,99 @@ var ListePatient = function ListePatient() {
 
 if (document.getElementById('idListe')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(ListePatient, {}), document.getElementById('idListe'));
+}
+
+;
+
+/***/ }),
+
+/***/ "./resources/js/components/dashbord/RecuPatient.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/dashbord/RecuPatient.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var RecuPatient = /*#__PURE__*/function (_Component) {
+  _inherits(RecuPatient, _Component);
+
+  var _super = _createSuper(RecuPatient);
+
+  function RecuPatient() {
+    _classCallCheck(this, RecuPatient);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(RecuPatient, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "page-titles",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ol", {
+            className: "breadcrumb",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+              className: "breadcrumb-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                href: "#",
+                children: "Re\xE7u "
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+              className: "breadcrumb-item active",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                href: "#",
+                children: "Patient"
+              })
+            })]
+          })
+        })
+      });
+    }
+  }]);
+
+  return RecuPatient;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RecuPatient);
+
+if (document.getElementById('recupatient')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(RecuPatient, {}), document.getElementById('recupatient'));
 }
 
 ;

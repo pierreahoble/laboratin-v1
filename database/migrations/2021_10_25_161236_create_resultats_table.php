@@ -15,11 +15,11 @@ class CreateResultatsTable extends Migration
     {
         Schema::create('resultats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('analyse_id');
+            $table->unsignedBigInteger('analyse_id')->nullable();
             $table->foreign('analyse_id')->references('id')->on('analyses');
-            $table->unsignedBigInteger('categorie_id');
+            $table->unsignedBigInteger('categorie_id')->nullable();
             $table->foreign('categorie_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('ligne_analyse_id');
+            $table->unsignedBigInteger('ligne_analyse_id')->nullable();
             $table->foreign('ligne_analyse_id')->references('id')->on('ligne_analyses');
             $table->string('groupe', 100)->nullable()->default('text');
             $table->string('rhesus', 100)->nullable()->default('text');

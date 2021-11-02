@@ -11,11 +11,11 @@ class Ligne_analyse extends Model
 
 
     protected $fillable = [
+        'patient_id',
         'analyse_id',
         'nature_analyse_id',
         'prix_unitaire',
         'quantite',
         'montant',
-        'patient_id	'
     ];
 }

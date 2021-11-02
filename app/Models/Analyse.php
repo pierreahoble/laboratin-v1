@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Analyse extends Model
 {
     use HasFactory;
+
+    protected $fillable =[
+        'code',
+        'patient_id',
+        'montant'
+    ];
 }

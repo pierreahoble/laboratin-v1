@@ -10,28 +10,32 @@ const Analyse = () => {
 
 
     const [keyNom, setkeyNom] = useState('')
+    const [nomPatient, setNomPatient] = useState('')
+    const [prenom, setPrenom] = useState('')
     const [age, setAge] = useState('')
+    const [nomAccompagant, setNomAccompagant] = useState('')
+    const [telAcompagnant, setTelAcompagnant] = useState('')
+    const [observation, setObservation] = useState('')
     const [telPatient, setTelPatient] = useState('Tel')
     const [patientId, setPatientId] = useState('')
-    const [adresse, setAdresse] = useState('Adresse')
+    const [adresse, setAdresse] = useState('')
     const [listePatient, setListePatient] = useState([])
     const [montantTotal, setMontantTotal] = useState('0')
     const [trouver, setTrouver] = useState(false)
     const [analyse, setAnalyse] = useState([])
     const [analyseId, setAnalyseId] = useState('')
     const [prixAnalyse, setPrixAnalyse] = useState('')
-    const [dataTrouver, setDataTrouver] = useState(false)
     const [tableauAnalyse, setTableauAnalyse] = useState([])
     const [afficheTableau, setAfficheTableau] = useState('')
-    const [desablebtn, setDesablebtn] = useState(true)
-    const [bool, setbool] = useState(false)
-    const [tabTemporaire, setTabTemporaire] = useState([1])
+    const [desablebtn, setDesablebtn] = useState(false)
     const [succes, setSucces] = useState(false)
+    const [tablOne, setTablOne] = useState([])
 
-
+    //Recherche du patient saisi 
     const handleKeyNom = (e) => {
+        console.log(e.target.value)
         setkeyNom(e.target.value)
-        if (keyNom.length > 4) {
+        if (keyNom.length > 1) {
             axios.post('http://localhost:8000/api/recupere_un_patient', {
                 'nom_patient': keyNom
             }).then((response) => {
@@ -43,71 +47,60 @@ const Analyse = () => {
         }
         else {
             setTrouver(false)
+            setkeyNom('')
             setAge('')
             setAdresse('')
+            setTelPatient('')
             setTelPatient('')
         }
     }
 
+    //Remplisasge des donnes du formulaire
     const remplirChamp = (data) => {
+        const nom = data.nom_patient + ' ' + data.prenom_patient
         setTrouver(false)
         setPatientId(data.id)
         setAge(data.age_patient)
         setAdresse(data.adresse)
         setTelPatient(data.telephone_patient)
-        setkeyNom(data.nom_patient)
+        setkeyNom(nom)
     }
 
+    //Affichage de la recherche patient
     const searchFoundPatient = listePatient.map((data) => {
         return <li key={data.id} className="list-group-item alert alert-dark" onClick={() => remplirChamp(data)}>{data.nom_patient}  {data.prenom_patient}</li>
         // <span key={data.id}>{data.nom_patient} {data.prenom_patient}</span>
     })
 
-
-
-    //Analyse Categoie
+    //Recuperation de l'analyse Categoie
 
     useEffect(() => {
 
         axios.get('http://localhost:8000/api/liste_des_analyses')
             .then((response) => {
                 var data = response.data
+                // console.log(data)
                 setAnalyse(data)
             })
 
+
     }, [])
 
-
-
-
+    //Selection du l'analyse
     const onChangeSelect = (e) => {
+
         setAnalyseId(e.target.value)
+        setPrixAnalyse(analyse[e.target.value].prix_unitaire)
 
-
-
-        analyse.map(data => {
-            if (data.id == e.target.value) {
-                setPrixAnalyse(data.prix_unitaire)
-
-                axios.post('http://localhost:8000/api/analyse_id_categorie', {
-                    'id': data.id
-                })
-                    .then((response) => {
-                        var resp = response.data
-                        tabTemporaire.length = 1
-                        if (resp.length > 0) {
-                            // setTabTemporaire([...tabTemporaire, resp[0]])
-                            setTableauAnalyse([...tableauAnalyse, resp[0]])
-                            setDesablebtn(false)
-                        }
-
-
-                    })
-
-            }
-        })
-
-
+        if (!tableauAnalyse.includes(analyse[e.target.value])) {
+            console.log('tabOne 1')
+            setTablOne([...tablOne, analyse[e.target.value]])
+            console.log('tabOne 2')
+            console.log(tablOne)
+            setDesablebtn(false)
+        } else {
+            alert('Vous avez deja ajouter cet element a votre liste')
+        }
 
 
     }
@@ -119,9 +112,26 @@ const Analyse = () => {
 
 
 
+    //Boutonn ajouter les elements au tableau
     const handleAdd = () => {
 
-        const ficheTableau = tableauAnalyse.length > 0 ? (tableauAnalyse).map((data, index) => {
+        if (analyseId == '') {
+            alert('choisissez la categorie')
+        } else if (tablOne.length > 0) {
+            setTableauAnalyse([...tableauAnalyse, tablOne[0]])
+            setTablOne([])
+
+            setDesablebtn(false)
+        }
+
+        afficheerLesDonnees()
+
+    }
+
+    //Aficher les donnees 
+
+    const afficheerLesDonnees = () => {
+        return tableauAnalyse.map((data, index) => {
             setMontantTotal((parseInt(montantTotal) + parseInt(data.prix_unitaire)))
             return (
 
@@ -134,10 +144,14 @@ const Analyse = () => {
                     </td>
                 </tr>
             )
-        }) : ''
-
-        setAfficheTableau(ficheTableau)
+        })
     }
+
+
+
+
+
+
 
     //suppression dans le tableau des analyse 
     const suppAnalyse = (index, mont) => {
@@ -158,22 +172,80 @@ const Analyse = () => {
             setSucces(true)
         }
         axios.post('http://localhost:8000/api/add_analyse_categorie', {
-            patient_id: patientId,
-            montant: montantTotal,
-            data: tableauAnalyse
+            'patient_id': patientId,
+            'montant': montantTotal,
+            'data': tableauAnalyse
         }).then((response) => {
-            console.log(response)
+            if (response.data == 'SUCCES') {
+                setSucces(true)
+                setkeyNom('')
+                setAge('')
+                setAdresse('')
+                setTelPatient('')
+                setMontantTotal('')
+                setAfficheTableau('')
+                setTableauAnalyse('')
+                setDesablebtn(true)
+            }
+
         }).catch((error) => {
             console.log(error)
         })
     }
 
 
+    const handleAlert = () => {
+        setSucces(false)
+    }
+
+
+
+
+
+    const submitModal = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:8000/api/ajouter_patient', {
+            'nom': nomPatient,
+            'prenom': prenom,
+            'adresse': adresse,
+            'telephone': telPatient,
+            'age': age,
+            'nomAccompagnant': nomAccompagant,
+            'telAccompagnant': telAcompagnant,
+            'observation': observation
+        }).then((response) => {
+            var data = response.data
+            setkeyNom(data.nom_patient)
+            setPatientId(data.id)
+            setAge(data.age_patient)
+            setAdresse(data.adresse)
+            setTelPatient(data.telephone_patient)
+            closeModal
+        })
+
+    }
+
+
+    //close Modal
+
+    const closeModal = () => {
+        setVisible(true)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //Message
-
-
     const message =
         succes &&
         <div className="container" onClick={handleAlert}>
@@ -229,7 +301,7 @@ const Analyse = () => {
                                     <label className="col-sm-3 col-form-label col-form-label-sm">Patient :</label>
                                     <div className="form-group row  col-md-12">
                                         <div className="col-sm-3">
-                                            <input type="text" className="form-control" placeholder="Nom Du Patient" value={keyNom} onChange={handleKeyNom} required/>
+                                            <input type="text" className="form-control" placeholder="Nom Du Patient" value={keyNom} onChange={handleKeyNom} required />
                                         </div>
 
                                         <div className="col-sm-3">
@@ -261,8 +333,8 @@ const Analyse = () => {
                                             <select className="form-control" value={analyseId} onChange={(e) => onChangeSelect(e)}>
                                                 <option>Choisir l'analyse</option>
                                                 {
-                                                    analyse.map((data) => {
-                                                        return <option key={data.id} value={data.id}>{data.libelle_analyse}</option>
+                                                    analyse.map((data, index) => {
+                                                        return <option key={data.id} value={index}>{data.libelle_analyse}</option>
                                                     })
                                                 }
                                             </select>
@@ -296,7 +368,8 @@ const Analyse = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody id="idTab">
-                                                            {tableauAnalyse.length > 0 ? afficheTableau : ''}
+                                                            {() => afficheerLesDonnees}
+                                                            {/* {tableauAnalyse.length > 0 ? afficheTableau : ''} */}
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
@@ -324,7 +397,11 @@ const Analyse = () => {
             </div>
 
 
-            <div className="modal fade bd-example-modal-lg" id="basicModal">
+
+
+            {/* showmoal pour inserrer un nouveau patient */}
+
+            <div className="modal fade bd-example-modal-lg" id="basicModal" onKeyDown={() => closeModal}>
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -336,18 +413,18 @@ const Analyse = () => {
                             <div className="col-xl-12 col-lg-12">
                                 <div className="card-body">
                                     <div className="basic-form">
-                                        <form>
+                                        <form onSubmit={submitModal}>
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label">Nom :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder="Nom Du Patient" />
+                                                    <input type="text" className="form-control" placeholder="Nom Du Patient" required value={nomPatient} onChange={(e) => setNomPatient(e.target.value)} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label"> Prénom :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Prénom Du Patient" />
+                                                    <input type="text" className="form-control" placeholder=" Prénom Du Patient" required value={prenom} onChange={(e) => setPrenom(e.target.value)} />
                                                 </div>
                                             </div>
 
@@ -355,7 +432,7 @@ const Analyse = () => {
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label"> Adresse :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Adresse Du Patient" />
+                                                    <input type="text" className="form-control" placeholder=" Adresse Du Patient" required value={adresse} onChange={(e) => setAdresse(e.target.value)} />
                                                 </div>
                                             </div>
 
@@ -364,7 +441,7 @@ const Analyse = () => {
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label"> Tel :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Tel Du Patient" />
+                                                    <input type="number" className="form-control" placeholder=" Tel Du Patient" required value={telPatient} onChange={(e) => setTelPatient(e.target.value)} />
                                                 </div>
                                             </div>
 
@@ -372,7 +449,7 @@ const Analyse = () => {
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label"> Age  :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Age Du Patient" />
+                                                    <input type="text" className="form-control" placeholder=" Age Du Patient" required value={age} onChange={(e) => setAge(e.target.value)} />
                                                 </div>
                                             </div>
 
@@ -380,27 +457,28 @@ const Analyse = () => {
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label"> Accompagnant  :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Accompagnant Du Patient" />
+                                                    <input type="text" className="form-control" placeholder=" Accompagnant Du Patient" required value={nomAccompagant} onChange={(e) => setNomAccompagant(e.target.value)} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label">Tel. Accompagnant  :</label>
                                                 <div className="col-sm-8">
-                                                    <input type="text" className="form-control" placeholder=" Tel Accompagnant Du Patient" />
+                                                    <input type="text" className="form-control" placeholder=" Tel Accompagnant Du Patient" required value={telAcompagnant} onChange={(e) => setTelAcompagnant(e.target.value)} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row">
                                                 <label className="col-sm-4 col-form-label">Obserrvation  :</label>
                                                 <div className="col-sm-8">
-                                                    <textarea className="form-control" placeholder="Observation"></textarea>                                                </div>
+                                                    <textarea className="form-control" placeholder="Observation" value={observation} onChange={(e) => setObservation(e.target.value)} ></textarea>
+                                                </div>
                                             </div>
 
 
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-danger light" data-dismiss="modal">Fermer</button>
-                                                <button type="button" className="btn btn-primary">Sauvegarder</button>
+                                                <button type="submit" className="btn btn-primary">Sauvegarder</button>
                                             </div>
                                         </form>
                                     </div>
