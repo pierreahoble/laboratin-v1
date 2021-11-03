@@ -38,6 +38,20 @@ Route::post('analyse_id_categorie',[AnalyseController::class,'analyse_categorie'
 //Persistance des donnes de l'analyse
 Route::post('add_analyse_categorie',[AnalyseController::class,'add_analyse']);
 
+//Les 5 derniers analyse
+Route::get('recap_analyse',[AnalyseController::class,'recap_des_analyse']);
+
+//Update analyse
+Route::post('update_analyse',[AnalyseController::class,'update_analyse']);
+
+
+//Supprimer une analyse
+Route::post('suppanalyse',[AnalyseController::class,'supp_analyse']);
+
+//Mettre a jour le statut
+
+Route::post('mise_a_jour',[AnalyseController::class,'mise_a_analyse']);
+
 
 
 

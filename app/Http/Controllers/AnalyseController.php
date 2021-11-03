@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Analyse;
+use App\Models\Patient;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Ligne_analyse;
@@ -71,11 +73,62 @@ class AnalyseController extends Controller
       return view('dashbord.recu');
     }
 
+    //recuperer les cinq derniers analyse
+
+    public function recap_des_analyse()
+    {
+      // $data=Ligne_analyse::join('nature_analyses','ligne_analyses.nature_analyse_id','nature_analyses.id')
+      //                     ->join('patients','ligne_analyses.patient_id','patients.id')
+      //                     ->join('analyses','ligne_analyses.analyse_id','analyses.id')
+      //                     // ->where('ligne_analyses.patient_id', '=','analyses.patient_id')
+      //                     ->get();
+
+      $data = Patient::join('ligne_analyses','ligne_analyses.patient_id','patients.id')
+                      ->join('nature_analyses','nature_analyses.id','ligne_analyses.nature_analyse_id')
+                      ->where('patients.id',6)
+                      ->whereDate('ligne_analyses.created_at', date('Y-m-d'))
+                      ->take(2)
+                      ->get();
 
 
+       return response()->json($data, 200);
+    }
 
 
+    //Modifier une anlyses
 
+    public function update_analyse(REQUEST $request)
+    {
+
+
+      $data = $request['data'];
+      $success = 'SUCCESS';
+      $id_analyse = $request['analyse_id'];
+      
+      //Suppression des analyses a mettre a jour 
+      $analyse_old = Analyse::find($id_analyse)->ligne_analyse()->delete();
+      $supp_analyse = Analyse::find($id_analyse)->delete();
+
+
+      $analyse = Analyse::create([
+        'code'=>request('patient_id') + request('montant')	,
+        'patient_id'=>request('patient_id')	,
+        'montant'=>request('montant')	,
+      ]);
+      
+      foreach ($data as $key => $value) {
+        $analyse_new = Ligne_analyse::create([
+          'patient_id'=>$request['patient_id'],
+         'analyse_id'=>$analyse->id,
+          'nature_analyse_id'=>$value['id'],
+          'prix_unitaire'=>$value['prix_unitaire'],
+          'quantite'=>1,
+          'montant'=>$request['montant']
+        ]);
+      }
+
+    return response()->json($success, 200);
+    }
 
 
 
@@ -84,33 +137,72 @@ class AnalyseController extends Controller
     //Persistance des donnes analyse
     public function add_analyse(REQUEST  $request)
     {
-
        $success='SUCCES';
 
-     
        $data = $request['data'];
-      //  return $data;
-      
+      //  code	patient_id	montant	
+      $analyse = Analyse::create([
+        'code'=>request('patient_id') + request('montant')	,
+        'patient_id'=>request('patient_id')	,
+        'montant'=>request('montant')	,
+      ]);
+
+      $id_analyse = $analyse->id;
 
        foreach ($data as $key=> $value) {
-
-         $analyse = Analyse::create([
-            'code'=>$request['montant'] + $request['patient_id'],
-            'patient_id'=>$request['patient_id'],
-            'montant'=>$request['montant']
-         ]);
           
            $data_ligne = Ligne_analyse::create([
              'patient_id'=>$request['patient_id'],
-             'analyse_id'=>$analyse->id,
+            'analyse_id'=> $id_analyse,
              'nature_analyse_id'=>$value['id'],
              'prix_unitaire'=>$value['prix_unitaire'],
              'quantite'=>1,
              'montant'=>$request['montant']
            ]);
        }
-       return response()->json($success, 200);
+       $data =['success'=>'SUCCESS', 'id_analyse'=>$id_analyse];
+       return response()->json($data, 200);
     }
+
+
+    //Supp analyse
+
+    public function supp_analyse(REQUEST $request)
+    {
+     $success = 'SUCCESS';
+     $data = $request['data'];
+     $id_analyse = $request['analyse_id'];
+     $analyse_old = Analyse::find($id_analyse)->ligne_analyse()->delete();
+     $supp_analyse = Analyse::find($id_analyse)->delete();
+    
+     return response()->json($success, 200);
+  }
+
+
+
+  public function mise_a_analyse(REQUEST $request)
+  {
+    $data = request('data');
+
+    $success = 'SUCCESS';
+
+    foreach ($data as $key => $value) {
+     $tabAnalyse = Ligne_analyse::whereDate('created_at',date('Y-m-d'))
+                                  ->where('patient_id',request('patient_id'))
+                                  ->where('montant',request('montant'))
+                                  ->where('nature_analyse_id',$value['id'])
+                                  ->update(['statut'=>1]) ;
+
+    }
+
+    return response()->json($success, 200);
+
+
+
+  }
+
+
+
 
 
 

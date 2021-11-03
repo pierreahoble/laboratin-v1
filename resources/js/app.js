@@ -22,3 +22,4 @@ require('./components/dashbord/AddAnalyse');
 require('./components/dashbord/ListeAnalyse');
 require('./components/dashbord/AnalysePatient');
 require('./components/dashbord/RecuPatient')
+require('./components/dashbord/AddUser')

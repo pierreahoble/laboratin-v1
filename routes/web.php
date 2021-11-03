@@ -22,6 +22,7 @@ use App\Http\Controllers\ConnexionController;
 //     return view('welcome');
 // });
 
+Route::view('recubilan', 'index');
 
 Route::get('ad', function () {
    App\Models\User::create([
@@ -71,8 +72,9 @@ Route::get('ajouteruneanalyse',[AnalyseController::class,'index']);
 Route::get('listeanalyse', [AnalyseController::class,'liste']);
 
 
+
 #######
-Route::get('ajouteruneanalyse', [AnalyseController::class,'nouvelle_analyse']);
+// Route::get('ajouteruneanalyse', [AnalyseController::class,'nouvelle_analyse']);
 
 ######Reçu du patient
 Route::get('recudupatient',[AnalyseController::class,'recu_patient']);

@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import {toast } from 'react-toast';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import PDFCaisse from '../PDFCaisse';
 
-
+toast.configure()
 
 class AnalysePatient extends Component {
     constructor(props) {
@@ -22,11 +24,17 @@ class AnalysePatient extends Component {
             nomAccompagant: '',
             telAccompagnant: '',
             observation: '',
+            analyseIdUpdate: '',
             trouver: false,
+            success: false,
+            btnBool: false,
+            btnValider: false,
             analyses: [],
             message: '',
+            showMessage: '',
             tabOne: [],
             tabAnalyse: [],
+            tabRecapAnalyse: [],
             listePatient: [],
         }
     }
@@ -35,6 +43,8 @@ class AnalysePatient extends Component {
 
     componentDidMount() {
 
+
+
         axios.get('http://localhost:8000/api/liste_des_analyses')
             .then((response) => {
                 var data = response.data
@@ -42,7 +52,59 @@ class AnalysePatient extends Component {
                     analyses: data
                 })
             })
+
+
+
+        // axios.get()
     }
+    //methode pour afficher un messsage de succes
+
+    showMessage() {
+        toast.success('Analyse ajouté avec success', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    //Message de modification
+    showMessageUpdate() {
+        toast.success(this.state.showMessage, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if (this.state.success) {
+            this.showMessage()
+            this.setState({
+                success: false
+            })
+        }
+
+        if (this.state.showMessage) {
+            this.showMessageUpdate()
+            this.setState({
+                showMessage: ''
+            })
+        }
+    }
+
+
+
+
+
 
     //Checker a la modfication du select
 
@@ -150,21 +212,26 @@ class AnalysePatient extends Component {
     sendInfo(e) {
         e.preventDefault()
         if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
-
+            var data = this.state.tabAnalyse
 
             axios.post('http://localhost:8000/api/add_analyse_categorie', {
                 'patient_id': this.state.patientId,
                 'montant': this.state.montantTotal,
                 'data': this.state.tabAnalyse
             }).then((response) => {
-                if (response.data == 'SUCCES') {
+                console.log(response.data)
+                var dataR = response.data
+                if (dataR.success == 'SUCCESS') {
                     this.setState({
                         agePatient: '',
                         telPatient: '',
                         adressePatient: '',
-                        nomPatient: '',
-                        patientId: '',
-                        tabAnalyse: []
+                        // nomPatient: '',
+                        // patientId: '',
+                        success: true,
+                        tabRecapAnalyse: data,
+                        tabAnalyse: [],
+                        analyseIdUpdate: dataR.id_analyse
 
                     })
                 }
@@ -221,6 +288,94 @@ class AnalysePatient extends Component {
 
 
 
+
+    //Modifier une analyse
+
+    modifierAnalyse() {
+        var data = this.state.tabRecapAnalyse
+        this.setState({
+            btnBool: true,
+            tabAnalyse: data,
+            tabRecapAnalyse: []
+        })
+    }
+
+    //Enregistre les modifications
+    updatedListeAnalyse(e) {
+        var data = this.state.tabAnalyse
+        e.preventDefault()
+
+        axios.post('http://localhost:8000/api/update_analyse', {
+            'patient_id': this.state.patientId,
+            'montant': this.state.montantTotal,
+            'analyse_id': this.state.analyseIdUpdate,
+            'data': this.state.tabAnalyse
+        }).then((response) => {
+            console.log(response)
+            if (response.data == 'SUCCESS') {
+                this.setState({
+                    btnBool: false,
+                    montantTotal: 0,
+                    showMessage: 'Analyse modfié avec success',
+                    tabRecapAnalyse: data,
+                    tabAnalyse: []
+                })
+            }
+        })
+
+    }
+
+
+    //Suppression de l'analyse entier 
+    supptabAnalyse() {
+
+        axios.post('http://localhost:8000/api/suppanalyse', {
+            'patient_id': this.state.patientId,
+            'montant': this.state.montantTotal,
+            'data': this.state.tabRecapAnalyse,
+            'analyse_id': this.state.analyseIdUpdate,
+        }).then((response) => {
+            if (response.data == 'SUCCESS') {
+                this.setState({
+                    tabAnalyse: [],
+                    montantTotal: 0,
+                    tabRecapAnalyse: [],
+                    showMessage: 'Analyse supprimé avec success',
+
+                })
+            }
+        })
+    }
+
+
+    //Valider l'analyse
+    validerAnalyse() {
+
+        axios.post('http://localhost:8000/api/mise_a_jour', {
+            'patient_id': this.state.patientId,
+            'montant': this.state.montantTotal,
+            'analyse_id': this.state.analyseIdUpdate,
+            'data': this.state.tabRecapAnalyse
+        }).then((response) => {
+            console.log(response.data)
+            this.setState({
+                btnValider: true,
+                showMessage: 'Analyse validé avec success'
+            })
+
+        })
+
+    }
+
+
+
+
+
+
+
+
+
+
     //Liste des analyse choisir dans le tableau
     renderRows() {
         var context = this;
@@ -238,6 +393,43 @@ class AnalysePatient extends Component {
             );
         });
     }
+
+
+    //Liste des analyses faits
+    renderRowsP() {
+        var context = this
+
+        return this.state.tabRecapAnalyse.length > 0 ? (
+            <tr>
+                <td><div className="d-flex align-items-center">
+                    <span className="w-space-no">Dr. Jackson</span></div></td>
+                <td>
+                    {this.state.tabRecapAnalyse.map(function (data, index) {
+                        return data.libelle_analyse + "--"
+                    })}
+                </td>
+                <td>01 August 2020</td>
+                {/* <td><div className="d-flex align-items-center"><i className="fa fa-circle text-success mr-1"></i> Successful</div></td> */}
+                <td>
+                    <div className="d-flex">
+                        <button className="btn btn-primary shadow btn-xs sharp mr-1" onClick={this.modifierAnalyse.bind(this)} disabled={this.state.btnValider} ><i className="fa fa-pencil"></i></button>
+                        <button className="btn btn-danger shadow btn-xs sharp mr-1" onClick={this.supptabAnalyse.bind(this)} disabled={this.state.btnValider}><i className="fa fa-trash"></i></button>
+                        <button className="btn btn-info shadow btn-xs sharp mr-1" ><i className="fa fa-print"></i></button>
+                        <button className="btn btn-dark shadow btn-xs sharp mr-1" onClick={this.validerAnalyse.bind(this)} ><i className="fa fa-check"></i></button>
+                    </div>
+                </td>
+            </tr>
+        ) : ''
+
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -277,7 +469,7 @@ class AnalysePatient extends Component {
 
                             <div className="card-body">
                                 <div className="basic-form">
-                                    <form onSubmit={this.sendInfo.bind(this)}>
+                                    <form >
                                         <label className="col-sm-3 col-form-label col-form-label-sm">Patient :</label>
                                         <div className="form-group row  col-md-12">
                                             <div className="col-sm-3">
@@ -364,8 +556,10 @@ class AnalysePatient extends Component {
                                         </div>
 
 
-
-                                        <div className="col-sm-10"><button type="submit" className="btn btn-primary">Enrégistré</button></div>
+                                        {this.state.btnBool == false ?
+                                            <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.sendInfo.bind(this)}>Enrégistré</button></div> :
+                                            <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.updatedListeAnalyse.bind(this)}>Modifié</button></div>
+                                        }
 
                                     </form>
                                 </div>
@@ -457,7 +651,7 @@ class AnalysePatient extends Component {
 
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-danger light" data-dismiss="modal">Fermer</button>
-                                                    <button type="submit" className="btn btn-primary">Sauvegarder</button>
+                                                    <button type="submit" className="btn btn-primary" >Sauvegarder</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -468,6 +662,43 @@ class AnalysePatient extends Component {
                         </div>
                     </div>
                 </div>
+
+
+
+
+                <div className="col-lg-12">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4 className="card-title">Liste des Analyses</h4>
+                        </div>
+                        <div className="card-body">
+                            <div className="table-responsive">
+                                <table className="table table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            {/* <th><strong>NO.</strong></th> */}
+                                            <th><strong>Patient</strong></th>
+                                            <th><strong>Analyse</strong></th>
+                                            <th><strong>Date</strong></th>
+                                            {/* <th><strong>Status</strong></th> */}
+                                            <th><strong>Actions</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderRowsP()}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <PDFCaisse />
+
+
+
+
 
             </Fragment>
 

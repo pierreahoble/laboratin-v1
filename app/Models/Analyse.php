@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ligne_analyse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Analyse extends Model
 {
@@ -14,4 +15,11 @@ class Analyse extends Model
         'patient_id',
         'montant'
     ];
+
+
+    
+    public function ligne_analyse()
+    {
+        return $this->hasMany(Ligne_analyse::class, 'analyse_id', 'id');
+    }
 }
