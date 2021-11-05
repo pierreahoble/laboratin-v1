@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dashbord\DashbordController;
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\AnalyseController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ResultatController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ConnexionController;
+use App\Http\Controllers\dashbord\DashbordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,11 @@ Route::post('login',[ConnexionController::class,'login']);
 Route::get('dashbordAdmin', [DashbordController::class,'index']);
 
 
+####################################################
+//Ajouter un utilisateur 
+Route::get('ajouter_un_utlisateur',[ConnexionController::class,'view_add_user']);
+
+
 
 ####################################################################
 //Patient
@@ -78,3 +84,9 @@ Route::get('listeanalyse', [AnalyseController::class,'liste']);
 
 ######Reçu du patient
 Route::get('recudupatient',[AnalyseController::class,'recu_patient']);
+
+###########################################################
+//REsusltat 
+Route::get('resultat_analyse',[ResultatController::class,'index']);
+
+

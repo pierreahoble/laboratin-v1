@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ligne_analyse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
@@ -20,4 +21,15 @@ class Patient extends Model
         'email_patient',
         'adresse'
     ];
+
+
+    /**
+     * Get the user that owns the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function analyse()
+    {
+        return $this->hasMany(Analyse::class,'patient_id','id');
+    }
 }

@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalyseController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ResultatController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ConnexionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,11 +59,30 @@ Route::post('mise_a_jour',[AnalyseController::class,'mise_a_analyse']);
 
 
 
+
+
+
+
 //Ajouter un patient 
 
 Route::post('ajouter_patient',[PatientController::class,'ajouter_patient']);
 
 //Recuperer un patient specifique par recherche 
 Route::post('recupere_un_patient', [PatientController::class,'recupere_un_patient']);
+
+
+//Ajouter un utlisateur 
+Route::post('add_user',[ConnexionController::class,'add_user']);
+
+################################RESULTATS
+//analyse, patient , nature_analyse 
+
+Route::post('analyse_patient_resultat', [ResultatController::class,'liste_analyse']);
+
+
+#############################################
+//Recuperer analyse utilisateur 
+Route::get('init_user_analyse',[ConnexionController::class,'init']);
+
 
 

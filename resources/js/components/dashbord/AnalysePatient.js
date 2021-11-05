@@ -398,17 +398,26 @@ class AnalysePatient extends Component {
     //Liste des analyses faits
     renderRowsP() {
         var context = this
+        var dateAnalyse = ''
 
         return this.state.tabRecapAnalyse.length > 0 ? (
             <tr>
                 <td><div className="d-flex align-items-center">
                     <span className="w-space-no">Dr. Jackson</span></div></td>
                 <td>
-                    {this.state.tabRecapAnalyse.map(function (data, index) {
-                        return data.libelle_analyse + "--"
-                    })}
+                    <table>
+                        {this.state.tabRecapAnalyse.map(function (data, index) {
+                            dateAnalyse=data.created_at
+                            return <tr>{data.libelle_analyse}</tr>
+                        })}
+
+                    </table>
+                    {/* {this.state.tabRecapAnalyse.map(function (data, index) {
+
+                        return data.libelle_analyse
+                    })} */}
                 </td>
-                <td>01 August 2020</td>
+                <td>{dateAnalyse}</td>
                 {/* <td><div className="d-flex align-items-center"><i className="fa fa-circle text-success mr-1"></i> Successful</div></td> */}
                 <td>
                     <div className="d-flex">
@@ -694,7 +703,7 @@ class AnalysePatient extends Component {
                 </div>
 
 
-                <PDFCaisse />
+                {/* <PDFCaisse /> */}
 
 
 

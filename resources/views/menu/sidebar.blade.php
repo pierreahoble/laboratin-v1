@@ -6,7 +6,15 @@
                     <span class="nav-text">Tab Bord</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('dashbordAdmin') }}">Analyse</a></li>
+
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Laratoire</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('dashbordAdmin') }}">Analyse</a></li>
+                            <li><a href="{{ url('resultat_analyse') }}">Resultat</a></li>
+                            {{-- <li><a href="{{ url('listeDesPatients') }}">Liste</a></li> --}}
+                        </ul>
+                    </li>
+
 
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Patient</a>
@@ -33,11 +41,18 @@
                     </li>
 
 
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Utilisateur</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('ajouter_un_utlisateur') }}">Ajouter</a></li>
+                            <li><a href="#">Liste</a></li>
+                        </ul>
+                    </li>
+
+
                 </ul>
             </li>
 
-{{-- 
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            {{-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
                     <span class="nav-text">Patient</span>
                 </a>

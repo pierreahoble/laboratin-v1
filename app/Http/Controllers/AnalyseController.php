@@ -101,6 +101,8 @@ class AnalyseController extends Controller
     {
 
 
+      $id =   $id = Analyse::latest('id')->first()->id;
+      $code = $this->code_id($id);
       $data = $request['data'];
       $success = 'SUCCESS';
       $id_analyse = $request['analyse_id'];
@@ -111,7 +113,7 @@ class AnalyseController extends Controller
 
 
       $analyse = Analyse::create([
-        'code'=>request('patient_id') + request('montant')	,
+        'code'=>$code,
         'patient_id'=>request('patient_id')	,
         'montant'=>request('montant')	,
       ]);
@@ -137,12 +139,14 @@ class AnalyseController extends Controller
     //Persistance des donnes analyse
     public function add_analyse(REQUEST  $request)
     {
+      //  $id =  Analyse::latest('id')->first()->id;
+      // $code = $this->code_id($id);
        $success='SUCCES';
 
        $data = $request['data'];
       //  code	patient_id	montant	
       $analyse = Analyse::create([
-        'code'=>request('patient_id') + request('montant')	,
+        'code'=> '56789',
         'patient_id'=>request('patient_id')	,
         'montant'=>request('montant')	,
       ]);
@@ -199,6 +203,28 @@ class AnalyseController extends Controller
 
 
 
+  }
+
+
+
+
+  //fonction pour creeer un code
+  public function code_id($id)
+  {
+    $id==null?$id=1:'';
+     $taille = Str::length($id);
+     if ($taille == 1) {
+         return $id ='000'.$id;
+     }
+     if ($taille == 2) {
+      return $id ='00'.$id;
+     }
+
+     if ($taille == 3 ) {
+      return $id ='0'.$id;
+     }
+
+     return $id;
   }
 
 

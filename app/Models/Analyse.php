@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Patient;
 use App\Models\Ligne_analyse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,4 +23,17 @@ class Analyse extends Model
     {
         return $this->hasMany(Ligne_analyse::class, 'analyse_id', 'id');
     }
+
+
+
+    
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
+    }
+
+
+
+
+    
 }
