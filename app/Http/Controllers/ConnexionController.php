@@ -51,14 +51,28 @@ class ConnexionController extends Controller
     {
         $data = $request['data'];
 
+
+        // $errors =$request->$validate([
+        //     'nom_user'=>'required',
+        //     'email'=>'email|unique:users',
+        //     'pseudo'=>'unique:users'
+        // ],[
+        //     'unique'=>'Cet utilisateur existe deja'
+        // ]);
+
+        // if ($validate->fails()) {
+        //     $message = 'Cet utilisateur existe deja';
+        //    return response()->json($validate);
+        // }
+
         $user = User::create([
             'nom_user'=>$request['nom_user'],
-            'email'=>$request['email_user'],
+            'email'=>$request['email'],
             'password'=>bcrypt('12345'),
             'prenom_user'=>$request['prenom_user'],
             'adresse_user'=>$request['nom_user'],
             'telephone_user'=>$request['tel_user'],
-            'pseudo'=>$request['pseudo_user']
+            'pseudo'=>$request['pseudo']
         ]);
 
         foreach ($data as $key => $value) {
@@ -80,7 +94,12 @@ class ConnexionController extends Controller
     //recuper les anlyse utilisateur 
     public function init(REQUEST $request)
     {
-        $data = User_analyse::all();
-        return $request;
+        // $data = User_analyse::find(23)->nature_analyse;
+        // $data = User_analyse::find(23)->user;
+        $data = User_analyse::with('user')
+                            ->where('user_id',35)
+                            ->with('nature_analyse')
+                            ->get(['nature_analyse_id','user_id']);
+        return $data;
     }
 }

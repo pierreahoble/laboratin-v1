@@ -62,6 +62,8 @@ export class AddUser extends Component {
                 this.setState({
                     analyses: data
                 })
+            }).catch((errors) => {
+                console.log(errors)
             })
 
     }
@@ -179,9 +181,9 @@ export class AddUser extends Component {
         axios.post('http://localhost:8000/api/add_user', {
             'nom_user': this.state.nomUser,
             'prenom_user': this.state.prenomUser,
-            'email_user': this.state.emailUser,
+            'email': this.state.emailUser,
             'tel_user': this.state.telUser,
-            'pseudo_user': this.state.pseudoUser,
+            'pseudo': this.state.pseudoUser,
             'data': this.state.tabEditer
         }).then((response) => {
             console.log(response)
@@ -193,12 +195,20 @@ export class AddUser extends Component {
                     telUser: '',
                     emailUser: '',
                     pseudoUser: '',
+                    tabEditer: [],
                     successMessage: true,
                     showMessage: 'Utilisateur ajouter avec success'
                 })
             }
-        }).catch((error) => {
-            console.log(error)
+        }).catch((errors) => {
+            // console.log(errors.message)
+            if (errors.message) {
+                this.setState({
+                    champ: true,
+                    showMessage: 'Cet utilisateur existe deja"  '
+                })
+            }
+
         })
 
 

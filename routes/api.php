@@ -86,3 +86,20 @@ Route::get('init_user_analyse',[ConnexionController::class,'init']);
 
 
 
+###############################################################
+//Ajouter des analyses
+Route::post('add_hemostase',[ResultatController::class,'add_hemostase']);
+
+//Ajouter Immuno
+Route::post('add_immuno',[ResultatController::class,'add_immuno']);
+
+//Ajouter une tyrodienne
+Route::post('add_tyrod',[ResultatController::class,'add_tyrod']);
+//Ajouter un groupe 
+Route::post('add_groupe',[ResultatController::class,'add_groupe']);
+
+//Ajouter Rub
+Route::post('add_rub',[ResultatController::class,'add_rub']);
+
+
+

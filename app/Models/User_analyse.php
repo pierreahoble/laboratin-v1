@@ -17,9 +17,20 @@ class user_analyse extends Model
 
 
    
-    public function user(): HasOne
+    public function nature_analyse()
     {
-        return $this->hasOne(Nature_analyse::class, 'nature_analyse_id', 'id');
+        return $this->belongsTo(Nature_analyse::class, 'nature_analyse_id', 'id');
+    }
+
+
+    /**
+     * Get the user that owns the User_analyse
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 
