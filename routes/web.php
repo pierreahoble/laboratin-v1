@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\AnalyseController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ResultatController;
@@ -37,56 +38,71 @@ Route::get('ad', function () {
 
 Route::get('/exemple',[ConnexionController::class,'example']);
 
-
-
-################################################################
 //Connexion
 Route::get('/',[ConnexionController::class,'index']);
-//Se connecter
+
 Route::post('login',[ConnexionController::class,'login']);
 
-#######################################################
-Route::get('dashbordAdmin', [DashbordController::class,'index']);
+Route::get('init_password/{email}',[ConnexionController::class,'init_password'])->name('init_password');
+Route::post('init_password',[ConnexionController::class,'confirme_password']);
 
 
-####################################################
-//Ajouter un utilisateur 
-Route::get('ajouter_un_utlisateur',[ConnexionController::class,'view_add_user']);
+######################################################################
+#Middleware
+
+Route::group(['middleware'=>'App\Http\Middleware\AuthMiddleware'],function () {
+    
+    ################################################################
+    //Se connecter
+    
+    #######################################################
+    Route::get('dashbordAdmin', [DashbordController::class,'index']);
+    
+    
+    ####################################################
+    //Ajouter un utilisateur 
+    Route::get('ajouter_un_utlisateur',[ConnexionController::class,'view_add_user']);
+    
+    ####################################################################
+    //Patient
+    Route::get('ajouterUnPatient', [PatientController::class,'index']);
+    //Liste des patients
+    Route::get('listeDesPatients', [PatientController::class,'liste']);
+    
+    
+    ###################################################################
+    
+    //Categorie
+    
+    Route::get('ajouterunecategorie', [CategorieController::class,'index']);
+    //Liste
+    Route::get('listecategorie',[CategorieController::class,'liste']);
+    
+    
+    #######################################################################
+    //Analyse 
+    Route::get('ajouteruneanalyse',[AnalyseController::class,'index']);
+    
+    Route::get('listeanalyse', [AnalyseController::class,'liste']);
+    
+    
+    
+    #######
+    // Route::get('ajouteruneanalyse', [AnalyseController::class,'nouvelle_analyse']);
+    
+    ######Reçu du patient
+    Route::get('recudupatient',[AnalyseController::class,'recu_patient']);
+    
+    ###########################################################
+    //REsusltat 
+    Route::get('resultat_analyse',[ResultatController::class,'index']);
 
 
 
-####################################################################
-//Patient
-Route::get('ajouterUnPatient', [PatientController::class,'index']);
-//Liste des patients
-Route::get('listeDesPatients', [PatientController::class,'liste']);
-
-
-###################################################################
-
-//Categorie
-
-Route::get('ajouterunecategorie', [CategorieController::class,'index']);
-//Liste
-Route::get('listecategorie',[CategorieController::class,'liste']);
-
-
-#######################################################################
-//Analyse 
-Route::get('ajouteruneanalyse',[AnalyseController::class,'index']);
-
-Route::get('listeanalyse', [AnalyseController::class,'liste']);
+    
+});        
 
 
 
-#######
-// Route::get('ajouteruneanalyse', [AnalyseController::class,'nouvelle_analyse']);
-
-######Reçu du patient
-Route::get('recudupatient',[AnalyseController::class,'recu_patient']);
-
-###########################################################
-//REsusltat 
-Route::get('resultat_analyse',[ResultatController::class,'index']);
 
 

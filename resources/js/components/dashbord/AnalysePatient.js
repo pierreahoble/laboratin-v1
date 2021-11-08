@@ -180,6 +180,16 @@ class AnalysePatient extends Component {
         }
     }
 
+    //Formater la date 
+    dateParse = (dateP) => {
+        let newDate = new Date(dateP).toLocaleDateString('fr-FR', {
+            month: "short",
+            year: "numeric",
+            day: "numeric"
+        })
+        return newDate
+    }
+
     //Remplir les champs de façon automatique
     remplirChamp = (index) => {
         var data = this.state.listePatient[index]
@@ -211,38 +221,42 @@ class AnalysePatient extends Component {
     //Envoyer les informations
     sendInfo(e) {
         e.preventDefault()
-        if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
-            var data = this.state.tabAnalyse
-
-            axios.post('http://localhost:8000/api/add_analyse_categorie', {
-                'patient_id': this.state.patientId,
-                'montant': this.state.montantTotal,
-                'data': this.state.tabAnalyse
-            }).then((response) => {
-                console.log(response.data)
-                var dataR = response.data
-                if (dataR.success == 'SUCCESS') {
-                    this.setState({
-                        agePatient: '',
-                        telPatient: '',
-                        adressePatient: '',
-                        // nomPatient: '',
-                        // patientId: '',
-                        success: true,
-                        tabRecapAnalyse: data,
-                        tabAnalyse: [],
-                        analyseIdUpdate: dataR.id_analyse
-
-                    })
-                }
-
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (this.state.nomPatient == "") {
+            alert('Vous deviez choisir le nom du patient')
         }
-        else {
-            alert("Verifiez que vous avez saisi un patient et que la liste de du tableau n'est pas vide ")
-        }
+        else
+            if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
+                var data = this.state.tabAnalyse
+
+                axios.post('http://localhost:8000/api/add_analyse_categorie', {
+                    'patient_id': this.state.patientId,
+                    'montant': this.state.montantTotal,
+                    'data': this.state.tabAnalyse
+                }).then((response) => {
+                    console.log(response.data)
+                    var dataR = response.data
+                    if (dataR.success == 'SUCCESS') {
+                        this.setState({
+                            agePatient: '',
+                            telPatient: '',
+                            adressePatient: '',
+                            // nomPatient: '',
+                            // patientId: '',
+                            success: true,
+                            tabRecapAnalyse: data,
+                            tabAnalyse: [],
+                            analyseIdUpdate: dataR.id_analyse
+
+                        })
+                    }
+
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+            else {
+                alert("Verifiez que vous avez saisi un patient et que la liste  du tableau n'est pas vide ")
+            }
     }
 
 
@@ -403,21 +417,17 @@ class AnalysePatient extends Component {
         return this.state.tabRecapAnalyse.length > 0 ? (
             <tr>
                 <td><div className="d-flex align-items-center">
-                    <span className="w-space-no">Dr. Jackson</span></div></td>
+                    <span className="w-space-no">{this.state.nomPatient}</span></div></td>
                 <td>
                     <table>
                         {this.state.tabRecapAnalyse.map(function (data, index) {
-                            dateAnalyse=data.created_at
-                            return <tr>{data.libelle_analyse}</tr>
+                            dateAnalyse = data.created_at
+                            return <tr key={index} >{data.libelle_analyse}</tr>
                         })}
 
                     </table>
-                    {/* {this.state.tabRecapAnalyse.map(function (data, index) {
-
-                        return data.libelle_analyse
-                    })} */}
                 </td>
-                <td>{dateAnalyse}</td>
+                <td>{this.dateParse(dateAnalyse)}</td>
                 {/* <td><div className="d-flex align-items-center"><i className="fa fa-circle text-success mr-1"></i> Successful</div></td> */}
                 <td>
                     <div className="d-flex">

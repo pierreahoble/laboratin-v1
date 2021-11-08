@@ -4546,6 +4546,15 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "dateParse", function (dateP) {
+      var newDate = new Date(dateP).toLocaleDateString('fr-FR', {
+        month: "short",
+        year: "numeric",
+        day: "numeric"
+      });
+      return newDate;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "remplirChamp", function (index) {
       var data = _this.state.listePatient[index];
       var nom = data.nom_patient + ' ' + data.prenom_patient; // console.log(data)
@@ -4718,7 +4727,7 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
           });
         });
       }
-    } //Remplir les champs de façon automatique
+    } //Formater la date 
 
   }, {
     key: "listeDesPatients",
@@ -4744,7 +4753,9 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
 
       e.preventDefault();
 
-      if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
+      if (this.state.nomPatient == "") {
+        alert('Vous deviez choisir le nom du patient');
+      } else if (this.state.nomPatient !== null && this.state.tabAnalyse.length > 0) {
         var data = this.state.tabAnalyse;
         axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/add_analyse_categorie', {
           'patient_id': this.state.patientId,
@@ -4771,7 +4782,7 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
           console.log(error);
         });
       } else {
-        alert("Verifiez que vous avez saisi un patient et que la liste de du tableau n'est pas vide ");
+        alert("Verifiez que vous avez saisi un patient et que la liste  du tableau n'est pas vide ");
       }
     } //Enregistre un nouveau patient
 
@@ -4926,7 +4937,7 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
             className: "d-flex align-items-center",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "w-space-no",
-              children: "Dr. Jackson"
+              children: this.state.nomPatient
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
@@ -4935,11 +4946,11 @@ var AnalysePatient = /*#__PURE__*/function (_Component) {
               dateAnalyse = data.created_at;
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
                 children: data.libelle_analyse
-              });
+              }, index);
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-          children: dateAnalyse
+          children: this.dateParse(dateAnalyse)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "d-flex",

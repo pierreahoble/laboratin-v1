@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\User_analyse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 Use Session;
 
 class ConnexionController extends Controller
@@ -18,13 +20,23 @@ class ConnexionController extends Controller
 
     public function login(REQUEST $request)
     {
+    //    return $user = User::where('email','honore@gmail.com')
+    //     ->update(['password'=>bcrypt(request('password'))]);
+
+
         $password=request('password');
         $email =request('email');
         $user=Auth::attempt(['email' => $email, 'password' => $password]);
-
+        
         if ($user) {
-            Session::flash('succes','Succès. Vous êtes connecté');
-            return redirect('dashbordAdmin');
+            $pass= Auth::user()->password;
+            if(Hash::check('12345', $pass)){
+                $email = Crypt::encrypt($email);
+                return redirect()->route('init_password', ['email' => $email]);
+            }else {
+                Session::flash('succes','Succès. Vous êtes connecté');
+                 return redirect('dashbordAdmin');
+            }
         }else{
             Session::flash('error','Echec. Email ou Mot de Passe incorrecte');
             return  redirect()->back();
@@ -34,6 +46,33 @@ class ConnexionController extends Controller
     public function example()
     {
         return view('exemple');
+    }
+
+    public function init_password()
+    {
+       return view('dashbord.initpassword');
+    }
+
+    public function confirme_password(REQUEST $request)
+    {
+
+        // return $request;
+        $email = Auth::user()->email;
+        $this->validate($request, [
+            'password'              => 'required|confirmed',
+            'password_confirmation' => 'required'
+        ],[
+            'confirmed'=> "Les mots de passe ne correspondent pas",
+            'required'=>"Les champs sont obligatoires"
+        ]);
+        
+        $user = User::where('email',$email)
+                    ->update(['password'=>bcrypt(request('password'))]);
+
+
+        Auth::logout();
+        return redirect('/');
+        
     }
 
 
