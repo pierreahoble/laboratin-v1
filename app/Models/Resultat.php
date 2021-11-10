@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Analyse;
+use App\Models\Nature_analyse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Resultat extends Model
 {
@@ -50,6 +52,19 @@ class Resultat extends Model
         'tsvpso'	
     ];
 
+
+   
+    public function analyse()
+    {
+        return $this->belongsTo(Analyse::class, 'analyse_id', 'id');
+    }
+
+    
+
+
+
+   
+    
 
 
 }

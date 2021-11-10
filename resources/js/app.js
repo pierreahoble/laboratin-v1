@@ -24,3 +24,4 @@ require('./components/dashbord/AnalysePatient');
 require('./components/dashbord/RecuPatient')
 require('./components/dashbord/AddUser')
 require('./components/dashbord/Resultat')
+require('./components/dashbord/ListeResultat')

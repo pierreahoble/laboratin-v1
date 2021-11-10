@@ -11,7 +11,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ url('dashbordAdmin') }}">Analyse</a></li>
                             <li><a href="{{ url('resultat_analyse') }}">Resultat</a></li>
-                            {{-- <li><a href="{{ url('listeDesPatients') }}">Liste</a></li> --}}
+                            <li><a href="{{ url('liste_resultat') }}">Liste Resultat</a></li>
                         </ul>
                     </li>
 

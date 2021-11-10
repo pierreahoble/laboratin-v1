@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Analyse;
 use App\Models\Patient;
 use App\Models\Categorie;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Ligne_analyse;
 use App\Models\Nature_analyse;
@@ -139,14 +140,14 @@ class AnalyseController extends Controller
     //Persistance des donnes analyse
     public function add_analyse(REQUEST  $request)
     {
-      //  $id =  Analyse::latest('id')->first()->id;
-      // $code = $this->code_id($id);
+       $id =  Analyse::latest('id')->first()->id;
+       $code = $this->code_id($id);
        $success='SUCCES';
 
        $data = $request['data'];
       //  code	patient_id	montant	
       $analyse = Analyse::create([
-        'code'=> '56789',
+        'code'=> $code,
         'patient_id'=>request('patient_id')	,
         'montant'=>request('montant')	,
       ]);

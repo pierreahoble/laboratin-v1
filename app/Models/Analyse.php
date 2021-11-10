@@ -25,6 +25,15 @@ class Analyse extends Model
     }
 
 
+   
+    public function resultat()
+    {
+        return $this->hasMany(Resultat::class, 'analyse_id', 'id');
+    }
+
+
+   
+
 
     
     public function patient()
@@ -33,6 +42,20 @@ class Analyse extends Model
     }
 
 
+
+    // public function nature_analyse() 
+    // {
+    // return $this->belongsToMany(Nature_analyse::class, 'ligne_analyses', 'analyse_id', 'nature_analyse_id');
+    // }
+
+
+    public function nature_analyse()
+    {
+        return $this->BelongsToMany(Nature_analyse::class,Ligne_analyse::class );
+    }
+
+
+   
 
 
     

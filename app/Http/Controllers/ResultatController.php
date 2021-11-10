@@ -6,6 +6,9 @@ use App\Models\Analyse;
 use App\Models\Patient;
 use App\Models\Resultat;
 use Illuminate\Http\Request;
+use App\Models\Ligne_analyse;
+use App\Models\Nature_analyse;
+use Illuminate\Support\Facades\DB;
 
 class ResultatController extends Controller
 {
@@ -158,43 +161,41 @@ class ResultatController extends Controller
     }
 
 
-                  
-    // 'groupe',
-    // 'rhesus',
-    // 'tca',
-    // 'tp',
-    // 'inr',
-    // 'ts',
-    // 'crp',
-    // 'aghbs',
-    // 'tpha',
-    // 'vdrl',
-    // 'fts',
-    // 'ftu',
-    // 'tsh',
-    // 'igm',
-    // 'igg',
-    // 'vft3',
-    // 'vft4',
-    // 'vtsh',
-    // 'igmR',
-    // 'iggR',
-    // 'iggVt',
-    // 'iggVr',
-    // 'aghbsKit',
-    // 'aghbsTech',
-    // 'tphaKit',
-    // 'tphaTech',
-    // 'vdrlKit',
-    // 'vdrlTech',
-    // 'tcavpsa',
-    // 'tcavpso',
-    // 'tcvpsa',
-    // 'tcvpso',
-    // 'inrvpsa',
-    // 'inrvpso',
-    // 'tsvpsa',
-    // 'tsvpso'
+
+
+    public function liste_resultat()
+    {
+       return view('dashbord.listeresultat');
+    }
+
+    public function liste_des_resultats()
+    {
+
+   
+       
+
+        $resulats = Analyse::with('nature_analyse')
+                            ->get();
+    
+
+        // $resulats = Resultat::find(13)->analyse->nature_analyse;
+        // $resulats = Resultat::with('nature_analyse')
+        //                     ->get();
+  
+
+       return response()->json($resulats, 200);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -231,8 +232,3 @@ class ResultatController extends Controller
 
 
 
-
-// $data = Patient::find(1)->analyse->where('code','11501');
-// Patient::find(1)->ligne_analyse;
-// $data =Patient::with('analyse')->get();
-// $data = Analyse::with('ligne_analyse')->get();

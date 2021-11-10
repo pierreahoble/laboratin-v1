@@ -137,7 +137,7 @@ export class Resultat extends Component {
         var nom = data.patient.nom_patient + ' ' + data.patient.prenom_patient
         var age = data.patient.age_patient
         var dateA = this.dateParse(data.patient.created_at)
-        // console.log(data)
+        console.log(data)
         this.setState({
             trouver: false,
             analyseId: id,
@@ -338,7 +338,6 @@ export class Resultat extends Component {
     renderAllAnalyse() {
 
         var context = this
-
         return this.state.userAnalyse.map((data, index) => {
             if (data.nature_analyse.libelle_analyse === "IMMUNO_SEROLOGIE") {
 

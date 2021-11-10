@@ -15,6 +15,8 @@
     <link href="{{ asset('assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     {{-- <link href="../../cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet"> --}}
+    {{-- <script src="{{ asset('assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script> --}}
+
     @yield('style')
 
 </head>
@@ -65,7 +67,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © KBE &amp; Developer apr <a href="#"
+                <p>Copyright © KBE &amp; Developer par <a href="#"
                         target="_blank">KBE TECHNOLOGIE</a> 2021</p>
             </div>
         </div>

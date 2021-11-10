@@ -101,5 +101,8 @@ Route::post('add_groupe',[ResultatController::class,'add_groupe']);
 //Ajouter Rub
 Route::post('add_rub',[ResultatController::class,'add_rub']);
 
+//Liste des resusltats
+Route::get('liste_resultat',[ResultatController::class,'liste_des_resultats']);
+
 
 

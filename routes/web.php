@@ -25,6 +25,7 @@ use App\Http\Controllers\dashbord\DashbordController;
 // });
 
 Route::view('recubilan', 'index');
+Route::view('hemostase', 'hemostase');
 
 Route::get('ad', function () {
    App\Models\User::create([
@@ -96,6 +97,11 @@ Route::group(['middleware'=>'App\Http\Middleware\AuthMiddleware'],function () {
     ###########################################################
     //REsusltat 
     Route::get('resultat_analyse',[ResultatController::class,'index']);
+
+
+    #######################################################################
+    //Liste des resultats 
+    Route::get('liste_resultat',[ResultatController::class,'liste_resultat']);
 
 
 
