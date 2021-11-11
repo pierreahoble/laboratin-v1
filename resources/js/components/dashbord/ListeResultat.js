@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
 
 
 
@@ -39,8 +40,8 @@ export class ListeResultat extends Component {
                     <td>{data.code}</td>
                     <td>
                         <table>
-                            {data.nature_analyse.map((item,i)=>{
-                              return <tr key={i} >{item.libelle_analyse}</tr>
+                            {data.nature_analyse.map((item, i) => {
+                                return <tr key={i} >{item.libelle_analyse}</tr>
                             })}
                         </table>
                     </td>
@@ -65,32 +66,72 @@ export class ListeResultat extends Component {
 
     render() {
         return (
-            <div className="col-lg-12">
-                <div className="card">
-                    <div className="card-header">
-                        <h4 className="card-title">Liste des Resultas Analyses</h4>
-                    </div>
-                    <div className="card-body">
-                        <div className="table-responsive">
-                            <table className="table header-border table-hover verticle-middle">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Code</th>
-                                        <th scope="col">Analyse</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.renderRows()}
+            <Fragment>
+                <div className="col-lg-12">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4 className="card-title">Liste des Resultas Analyses</h4>
+                        </div>
+                        <div className="card-body">
+                            <div className="table-responsive">
+                                <table className="table header-border table-hover verticle-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Code</th>
+                                            <th scope="col">Analyse</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderRows()}
 
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+
+                {/* <div className="col-12">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4 className="card-title">Datatable</h4>
+                        </div>
+                        <div className="card-body">
+                            <div className="table-responsive">
+                                <table id="example2" className="display">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Code</th>
+                                            <th>Analyse</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderRows()}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
+
+            </Fragment>
+
+
+
+
+
+
+
+
+
         )
     }
 }

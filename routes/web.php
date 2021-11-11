@@ -26,6 +26,10 @@ use App\Http\Controllers\dashbord\DashbordController;
 
 Route::view('recubilan', 'index');
 Route::view('hemostase', 'hemostase');
+Route::get('logout',function(){
+    // Auth::logout();
+    return Auth::user();
+});
 
 Route::get('ad', function () {
    App\Models\User::create([

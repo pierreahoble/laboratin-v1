@@ -1,6 +1,6 @@
 @extends('base')
 @section('style')
-   
+<link href="{{ asset('assets/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">   
 @endsection
 
 @section('contenu')
@@ -25,4 +25,7 @@
 
 @section('script')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins-init/datatables.init.js') }}"></script>
+
 @endsection

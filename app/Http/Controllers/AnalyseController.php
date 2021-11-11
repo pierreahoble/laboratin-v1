@@ -129,8 +129,9 @@ class AnalyseController extends Controller
           'montant'=>$request['montant']
         ]);
       }
+      $date = ['success'=>$success, 'code'=>$code];
 
-    return response()->json($success, 200);
+    return response()->json($data, 200);
     }
 
 
@@ -161,11 +162,12 @@ class AnalyseController extends Controller
             'analyse_id'=> $id_analyse,
              'nature_analyse_id'=>$value['id'],
              'prix_unitaire'=>$value['prix_unitaire'],
+             'categorie_id'=>$value['categorie_id'],
              'quantite'=>1,
              'montant'=>$request['montant']
            ]);
        }
-       $data =['success'=>'SUCCESS', 'id_analyse'=>$id_analyse];
+       $data =['success'=>'SUCCESS', 'id_analyse'=>$id_analyse,'code'=>$code];
        return response()->json($data, 200);
     }
 
@@ -190,6 +192,7 @@ class AnalyseController extends Controller
     $data = request('data');
 
     $success = 'SUCCESS';
+    $id_analyse =request('analyse_id');
 
     foreach ($data as $key => $value) {
      $tabAnalyse = Ligne_analyse::whereDate('created_at',date('Y-m-d'))
@@ -197,6 +200,7 @@ class AnalyseController extends Controller
                                   ->where('montant',request('montant'))
                                   ->where('nature_analyse_id',$value['id'])
                                   ->update(['statut'=>1]) ;
+    $update_analyse = Analyse::find($id_analyse)->update(['statut'=>1]);
 
     }
 

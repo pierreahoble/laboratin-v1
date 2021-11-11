@@ -16,10 +16,14 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     {{-- <link href="../../cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet"> --}}
     <style type="text/css" media="print">
-        p,
-        td,
-        th {
-            font-size: 15px;
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
         }
 
     </style>
@@ -62,30 +66,30 @@
                                 </div>
 
 
-                                <table class="table table-bordered table-responsive-sm">
+                                <table >
 
                                     <tbody>
                                         <tr>
-                                            <td style="font-size: 12px" colSpan="4">CLIENT : Kodjo Jean (Tel:
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;" colSpan="4">CLIENT : Kodjo Jean (Tel:
                                                 9045689)</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-size: 12px" colSpan="4">INAM /80%/ Sexe F Age : 23 an
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;" colSpan="4">INAM /80%/ Sexe F Age : 23 an
                                                 (s)
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="font-size: 12px" colSpan="4">Accompagnant : Soglo</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;" colSpan="4">Accompagnant : Soglo</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-size: 12px">Montant EMIS</td>
-                                            <td style="font-size: 12px">Montant PEC</td>
-                                            <td style="font-size: 12px">Montant PAYE</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">Montant EMIS</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">Montant PEC</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">Montant PAYE</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-size: 12px">7000</td>
-                                            <td style="font-size: 12px">5600</td>
-                                            <td style="font-size: 12px">1400</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">7000</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">5600</td>
+                                            <td style="font-size: 12px; border: 1px solid black;padding: 10px;">1400</td>
                                         </tr>
 
                                     </tbody>
@@ -93,32 +97,33 @@
 
 
                                 <div class="">
-                                    <table class="table">
+                                    <table style="border-collapse :collapse">
                                         <thead>
-                                            <tr>
-                                                <th style="font-size: 12px">Prestation</th>
-                                                <th style="font-size: 12px">Prix Unitaire</th>
-                                                <th style="font-size: 12px">MT Brut</th>
-                                                <th style="font-size: 12px">PEC</th>
-                                                <th style="font-size: 12px">Mt NAP</th>
+                                            <tr style="border: 1px solid black;padding: 10px;">
+                                                <th style="font-size: 12px;border: 1px solid black;
+                                                padding: 10px;">Prestation</th>
+                                                <th style="font-size: 12px border: 1px solid black;padding: 10px;">Prix Unitaire</th>
+                                                <th style="font-size: 12px; border: 1px solid black;padding: 10px;">MT Brut</th>
+                                                <th style="font-size: 12px; border: 1px solid black;padding: 10px;">PEC</th>
+                                                <th style="font-size: 12px; border: 1px solid black;padding: 10px;">Mt NAP</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th style="font-size: 12px">1</th>
-                                                <td style="font-size: 12px">Kolor Tea Shirt For Man</td>
-                                                <td style="font-size: 12px"><span>Sale</span>
+                                            <tr style="border: 1px solid black;padding: 10px;">
+                                                <th style="font-size: 12px; border: 1px solid black;padding: 10px;">1</th>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">Kolor Tea Shirt For Man</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;"><span>Sale</span>
                                                 </td>
-                                                <td style="font-size: 12px">January 22</td>
-                                                <td style="font-size: 12px">$21.56</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">January 22</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">$21.56</td>
                                             </tr>
                                             <tr>
-                                                <th style="font-size: 12px">2</th>
-                                                <td style="font-size: 12px">Kolor Tea Shirt For Women</td>
-                                                <td style="font-size: 12px"><span>Tax</span>
+                                                <th style="font-size: 12px; border: 1px solid black;padding: 10px;">2</th>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">Kolor Tea Shirt For Women</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;"><span>Tax</span>
                                                 </td>
-                                                <td style="font-size: 12px">January 30</td>
-                                                <td style="font-size: 12px">$55.32</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">January 30</td>
+                                                <td style="font-size: 12px; border: 1px solid black;padding: 10px;">$55.32</td>
                                             </tr>
                                         </tbody>
                                     </table>

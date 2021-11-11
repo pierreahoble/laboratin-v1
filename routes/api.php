@@ -85,6 +85,11 @@ Route::post('analyse_patient_resultat', [ResultatController::class,'liste_analys
 Route::get('init_user_analyse',[ConnexionController::class,'init']);
 
 
+###############################################
+//User connecter
+Route::get('user_connecte',[ConnexionController::class,'user_connecte']); 
+
+
 
 ###############################################################
 //Ajouter des analyses

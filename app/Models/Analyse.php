@@ -14,7 +14,8 @@ class Analyse extends Model
     protected $fillable =[
         'code',
         'patient_id',
-        'montant'
+        'montant',
+        'statut'
     ];
 
 

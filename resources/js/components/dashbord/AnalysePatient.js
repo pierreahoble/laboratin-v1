@@ -2,16 +2,38 @@ import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import PDFCaisse from '../PDFCaisse';
+import 'react-toastify/dist/ReactToastify.css'
+import jsPDF from 'jspdf'
+import PDFCaisse from '../pdf/PDFCaisse'
+
 
 toast.configure()
+
+const styleT = {
+    border: "1px solid black",
+    padding: "10px"
+}
+
+const styleD = {
+    fontSize: '12px',
+    border: '1px solid black',
+    padding: '10px'
+}
+const styleTa = {
+    borderCollapse: 'collapse'
+}
+const styleP = {
+    fontSize: '10px',
+}
 
 class AnalysePatient extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            nomUser: '',
+            prenomUser: '',
+            nomR: '',
             analyseId: '',
             prixUnnitaire: '',
             montantTotal: 0,
@@ -36,8 +58,12 @@ class AnalysePatient extends Component {
             tabAnalyse: [],
             tabRecapAnalyse: [],
             listePatient: [],
+            print: 0,
+            code: ''
         }
     }
+
+
 
 
 
@@ -194,12 +220,18 @@ class AnalysePatient extends Component {
     remplirChamp = (index) => {
         var data = this.state.listePatient[index]
         var nom = data.nom_patient + ' ' + data.prenom_patient
+        var nomA = data.nom_accompagnant_patient
+        var tel = data.telephone_patient
         // console.log(data)
         this.setState({
             agePatient: data.age_patient,
             telPatient: data.telephone_patient,
+            nomR: data.nom_patient,
             adressePatient: data.adresse,
+            prenomPatient: data.prenom_patient,
             nomPatient: nom,
+            nomAccompagant: nomA,
+            telPatient: tel,
             patientId: data.id,
             trouver: false
         })
@@ -237,11 +269,12 @@ class AnalysePatient extends Component {
                     var dataR = response.data
                     if (dataR.success == 'SUCCESS') {
                         this.setState({
-                            agePatient: '',
-                            telPatient: '',
-                            adressePatient: '',
+                            // agePatient: '',
+                            // telPatient: '',
+                            // adressePatient: '',
                             // nomPatient: '',
                             // patientId: '',
+                            code: dataR.code,
                             success: true,
                             tabRecapAnalyse: data,
                             tabAnalyse: [],
@@ -290,15 +323,6 @@ class AnalysePatient extends Component {
 
         })
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -382,6 +406,137 @@ class AnalysePatient extends Component {
     }
 
 
+    //
+
+
+    printAnalyse() {
+        this.setState({
+            print: 1
+        })
+    }
+
+    comeBack() {
+        this.setState({
+            print: 0
+        })
+    }
+
+
+    generatePDF = () => {
+        var doc = new jsPDF("p", "pt", "a4")
+        doc.html(document.querySelector('#pdfrecu'), {
+            callback: function (pdf) {
+                pdf.save("reçuclient.pdf")
+            }
+        })
+    }
+
+
+
+    renderPdfRecu() {
+        return <div className="mt-1">
+            <div className="container" id="pdfrecu">
+                <div className="row">
+                    <div className="">
+                        <div className="">
+                            <div className="">
+                                <img src='assets/images/logo.png' />
+                                <div style={{ textAlign: "center" }}>
+                                    <p>REPUBLIQUE TOGOLAISE MINISTERE DE LA SANTE</p>
+                                    <p>ET DE L'HYGIENE</p>
+                                    <p style={{ fontWeight: "bold", fontSize: '12px' }}>Reçu No 2345677 du 22/12/20 12:24</p>
+                                    <p style={{ fontWeight: "bold", fontSize: '12px' }}>HOPITAL DE BE ORIGINALE</p>
+                                </div>
+                                <h5 className="card-title"></h5>
+                            </div>
+                            <hr />
+                            <div >
+                                <div className="row">
+                                    <div className="col-xl-6">
+                                        <p>Reçu Client :{this.state.nomR + '  '} {' ' + this.state.prenomPatient} </p>
+                                    </div>
+                                    <div className="col-xl-6 float-left">
+                                        <p >Caissier : Kodjo </p>
+                                    </div>
+                                </div>
+
+
+                                <table style={styleTa}>
+
+                                    <tbody>
+                                        <tr style={styleT}>
+                                            <td style={styleD} colSpan="4">CLIENT : {this.state.nomR + '  '} {' ' + this.state.prenomPatient} (Tel: {this.state.telPatient})</td>
+                                        </tr>
+                                        <tr style={styleT}>
+                                            <td style={styleD} colSpan="4">INAM /80%/ Sexe F Age : {this.state.agePatient} an
+                                                (s)
+                                            </td>
+                                        </tr>
+                                        <tr style={styleT}>
+                                            <td style={styleD} colSpan="4">Accompagnant : {this.state.nomAccompagant}</td>
+                                        </tr>
+                                        <tr style={styleT}>
+                                            <td style={styleD}>Montant EMIS</td>
+                                            <td style={styleD}>Montant PEC</td>
+                                            <td style={styleD}>Montant PAYE</td>
+                                        </tr>
+                                        <tr style={styleT}>
+                                            <td style={styleD}>{this.state.montantTotal}</td>
+                                            <td style={styleD}>5600</td>
+                                            <td style={styleD}>1400</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <br />
+
+
+                                <div >
+                                    <table style={styleTa}>
+                                        <thead>
+                                            <tr style={styleT}>
+                                                <th style={styleD}>Prestation</th>
+                                                <th style={styleD}>Prix Unitaire</th>
+                                                <th style={styleD}>MT Brut</th>
+                                                <th style={styleD}>PEC</th>
+                                                <th style={styleD}>Mt NAP</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                this.state.tabRecapAnalyse.length > 0 ? this.state.tabRecapAnalyse.map((data, index) => {
+                                                    return <tr key={index} style={styleT}>
+                                                        <th style={styleD}> {data.libelle_analyse}</th>
+                                                        <td style={styleD}>{data.prix_unitaire}</td>
+                                                        <td style={styleD}><span>Tax</span>
+                                                        </td>
+                                                        <td style={styleD}>January 30</td>
+                                                        <td style={styleD}>{data.prix_unitaire}</td>
+                                                    </tr>
+                                                }) : ''
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p style={styleP}>Ce reçu est valable pour 30 jours, Passer ce delai, toute
+                                    reclamation est irrecevable </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div>
+                <button className="btn btn-primary" onClick={this.generatePDF}>IMPRIMER</button>
+                <button className="btn btn-primarye" onClick={this.comeBack.bind(this)}> Retour a la page</button>
+
+            </div>
+        </div>
+    }
+
+
 
 
 
@@ -433,7 +588,7 @@ class AnalysePatient extends Component {
                     <div className="d-flex">
                         <button className="btn btn-primary shadow btn-xs sharp mr-1" onClick={this.modifierAnalyse.bind(this)} disabled={this.state.btnValider} ><i className="fa fa-pencil"></i></button>
                         <button className="btn btn-danger shadow btn-xs sharp mr-1" onClick={this.supptabAnalyse.bind(this)} disabled={this.state.btnValider}><i className="fa fa-trash"></i></button>
-                        <button className="btn btn-info shadow btn-xs sharp mr-1" ><i className="fa fa-print"></i></button>
+                        <button className="btn btn-info shadow btn-xs sharp mr-1" onClick={this.printAnalyse.bind(this)} ><i className="fa fa-print"></i></button>
                         <button className="btn btn-dark shadow btn-xs sharp mr-1" onClick={this.validerAnalyse.bind(this)} ><i className="fa fa-check"></i></button>
                     </div>
                 </td>
@@ -445,288 +600,282 @@ class AnalysePatient extends Component {
 
 
 
-
-
-
-
-
-
-
     render() {
-        return (
 
+        if (this.state.print == 1) {
+            return this.renderPdfRecu()
+        } else {
 
-            <Fragment>
-                <div className="row">
-                    <div className="col-xl-6">
-                        <div className="page-titles">
-                            <div>
-                                <ol className="breadcrumb">
-                                    <li className="breadcrumb-item"><a href="#">Formulaire</a></li>
-                                    <li className="breadcrumb-item active"><a href="#">Analyse D'un Patient</a></li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+            return (
+                <Fragment>
 
-
-
-                    <div className="col-xl-6">
-                        <button className="btn btn-primary" data-toggle="modal" data-target="#basicModal">Ajouter Un Nouveau Patient</button>
-                    </div>
-
-                </div>
-
-                <div className="row">
-
-                    <div className="col-xl-12 col-lg-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4 className="card-title">ANALYSE - PATIENT</h4>
-                            </div>
-
-
-                            <div className="card-body">
-                                <div className="basic-form">
-                                    <form >
-                                        <label className="col-sm-3 col-form-label col-form-label-sm">Patient :</label>
-                                        <div className="form-group row  col-md-12">
-                                            <div className="col-sm-3">
-                                                <input type="text" className="form-control" placeholder="Nom Du Patient" required value={this.state.nomPatient} onChange={this.onChangeNom.bind(this)} />
-                                            </div>
-
-                                            <div className="col-sm-3">
-                                                <input type="text" className="form-control" placeholder="Age Du Patient" readOnly value={this.state.agePatient} />
-                                            </div>
-
-                                            <div className="col-sm-3">
-                                                <input type="text" className="form-control" placeholder="Tel. Du Patient" readOnly value={this.state.telPatient} />
-                                            </div>
-
-                                            <div className="col-sm-3">
-                                                <input type="text" className="form-control" placeholder="Adresse Du Patient" readOnly value={this.state.adressePatient} />
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group row col-sm-12">
-                                            <ul className="list-group  list-group-flush col-sm-8 ">
-                                                {this.listeDesPatients()}
-                                            </ul>
-                                        </div>
-
-
-                                        <hr className="mb-5" />
-
-
-                                        <div className="form-group row">
-                                            <label className="col-sm-2 col-form-label" >Analyse :</label>
-                                            <div className="col-sm-4">
-                                                <select className="form-control" value={this.state.analyseId} onChange={this.onChangeSelect.bind(this)}>
-                                                    <option>Choisir l'analyse</option>
-                                                    {
-                                                        this.state.analyses.map((data, index) => {
-                                                            return <option key={data.id} value={index}>{data.libelle_analyse}</option>
-                                                        })
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div className="col-sm-4">
-                                                <input type="text" className="form-control" placeholder="Prix" autoComplete="off" readOnly value={this.state.prixUnnitaire} />
-                                            </div>
-                                            <div className="col-sm-2">
-                                                <button type="button" className="btn btn-primary" onClick={this.handleClick.bind(this)} >+</button>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div className="col-lg-12">
-                                            <div className="card">
-                                                <div className="card-header">
-                                                    <h4 className="card-title">RECAPITULATIF DE L'ANALYSE</h4>
-                                                </div>
-                                                <div className="card-body">
-                                                    <div className="table-responsive">
-                                                        <table className="table table-hover table-responsive-sm">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Catégorie</th>
-                                                                    <th>Analyse</th>
-                                                                    {/* <th>Date</th> */}
-                                                                    <th>Prix</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="idTab">
-                                                                {this.renderRows()}
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <td colSpan="3"></td>
-                                                                    <td>Montant Total : </td>
-                                                                    <td>{this.state.montantTotal + '  FCFA'}</td>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        {this.state.btnBool == false ?
-                                            <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.sendInfo.bind(this)}>Enrégistré</button></div> :
-                                            <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.updatedListeAnalyse.bind(this)}>Modifié</button></div>
-                                        }
-
-                                    </form>
+                    <div className="row">
+                        <div className="col-xl-6">
+                            <div className="page-titles">
+                                <div>
+                                    <ol className="breadcrumb">
+                                        <li className="breadcrumb-item"><a href="#">Formulaire</a></li>
+                                        <li className="breadcrumb-item active"><a href="#">Analyse D'un Patient</a></li>
+                                    </ol>
                                 </div>
                             </div>
                         </div>
+
+
+
+                        <div className="col-xl-6">
+                            <button className="btn btn-primary" data-toggle="modal" data-target="#basicModal">Ajouter Un Nouveau Patient</button>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div className="row">
+
+                        <div className="col-xl-12 col-lg-12">
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4 className="card-title">ANALYSE - PATIENT</h4>
+                                </div>
+
+
+                                <div className="card-body">
+                                    <div className="basic-form">
+                                        <form >
+                                            <label className="col-sm-3 col-form-label col-form-label-sm">Patient :</label>
+                                            <div className="form-group row  col-md-12">
+                                                <div className="col-sm-3">
+                                                    <input type="text" className="form-control" placeholder="Nom Du Patient" required value={this.state.nomPatient} onChange={this.onChangeNom.bind(this)} />
+                                                </div>
+
+                                                <div className="col-sm-3">
+                                                    <input type="text" className="form-control" placeholder="Age Du Patient" readOnly value={this.state.agePatient} />
+                                                </div>
+
+                                                <div className="col-sm-3">
+                                                    <input type="text" className="form-control" placeholder="Tel. Du Patient" readOnly value={this.state.telPatient} />
+                                                </div>
+
+                                                <div className="col-sm-3">
+                                                    <input type="text" className="form-control" placeholder="Adresse Du Patient" readOnly value={this.state.adressePatient} />
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group row col-sm-12">
+                                                <ul className="list-group  list-group-flush col-sm-8 ">
+                                                    {this.listeDesPatients()}
+                                                </ul>
+                                            </div>
+
+
+                                            <hr className="mb-5" />
+
+
+                                            <div className="form-group row">
+                                                <label className="col-sm-2 col-form-label" >Analyse :</label>
+                                                <div className="col-sm-4">
+                                                    <select className="form-control" value={this.state.analyseId} onChange={this.onChangeSelect.bind(this)}>
+                                                        <option>Choisir l'analyse</option>
+                                                        {
+                                                            this.state.analyses.map((data, index) => {
+                                                                return <option key={data.id} value={index}>{data.libelle_analyse}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4">
+                                                    <input type="text" className="form-control" placeholder="Prix" autoComplete="off" readOnly value={this.state.prixUnnitaire} />
+                                                </div>
+                                                <div className="col-sm-2">
+                                                    <button type="button" className="btn btn-primary" onClick={this.handleClick.bind(this)} >+</button>
+                                                </div>
+                                            </div>
 
 
 
-
-                {/* showmoal pour inserrer un nouveau patient */}
-
-                <div className="modal fade bd-example-modal-lg" id="basicModal">
-                    <div className="modal-dialog modal-lg" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Ajout D'un Nouveau Patient</h5>
-                                <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="col-xl-12 col-lg-12">
-                                    <div className="card-body">
-                                        <div className="basic-form">
-                                            <form onSubmit={this.submitpatient.bind(this)}>
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label">Nom :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder="Nom Du Patient" required value={this.state.nomPatient} onChange={(e) => this.setState({ nomPatient: e.target.value })} />
+                                            <div className="col-lg-12">
+                                                <div className="card">
+                                                    <div className="card-header">
+                                                        <h4 className="card-title">RECAPITULATIF DE L'ANALYSE</h4>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="table-responsive">
+                                                            <table className="table table-hover table-responsive-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Catégorie</th>
+                                                                        <th>Analyse</th>
+                                                                        {/* <th>Date</th> */}
+                                                                        <th>Prix</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="idTab">
+                                                                    {this.renderRows()}
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td colSpan="3"></td>
+                                                                        <td>Montant Total : </td>
+                                                                        <td>{this.state.montantTotal + '  FCFA'}</td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label"> Prénom :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder=" Prénom Du Patient" required value={this.state.prenomPatient} onChange={(e) => this.setState({ prenomPatient: e.target.value })} />
-                                                    </div>
-                                                </div>
+                                            </div>
 
 
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label"> Adresse :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder=" Adresse Du Patient" required value={this.state.adressePatient} onChange={(e) => this.setState({ adressePatient: e.target.value })} />
-                                                    </div>
-                                                </div>
+                                            {this.state.btnBool == false ?
+                                                <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.sendInfo.bind(this)}>Enrégistré</button></div> :
+                                                <div className="col-sm-10"><button type="button" className="btn btn-primary" onClick={this.updatedListeAnalyse.bind(this)}>Modifié</button></div>
+                                            }
 
-
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label"> Tel :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="number" className="form-control" placeholder=" Tel Du Patient" required value={this.state.telPatient} onChange={(e) => this.setState({ telPatient: e.target.value })} />
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label"> Age  :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder=" Age Du Patient" required value={this.state.agePatient} onChange={(e) => this.setState({ agePatient: e.target.value })} />
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label"> Accompagnant  :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder=" Accompagnant Du Patient" required value={this.state.nomAccompagant} onChange={(e) => this.setState({ nomAccompagant: e.target.value })} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label">Tel. Accompagnant  :</label>
-                                                    <div className="col-sm-8">
-                                                        <input type="text" className="form-control" placeholder=" Tel Accompagnant Du Patient" required value={this.state.telAccompagnant} onChange={(e) => this.setState({ telAccompagnant: e.target.value })} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="form-group row">
-                                                    <label className="col-sm-4 col-form-label">Obserrvation  :</label>
-                                                    <div className="col-sm-8">
-                                                        <textarea className="form-control" placeholder="Observation" value={this.state.observation} onChange={(e) => this.setState({ observation: e.target.value })} ></textarea>
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-danger light" data-dismiss="modal">Fermer</button>
-                                                    <button type="submit" className="btn btn-primary" >Sauvegarder</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
-                </div>
 
 
 
 
-                <div className="col-lg-12">
-                    <div className="card">
-                        <div className="card-header">
-                            <h4 className="card-title">Liste des Analyses</h4>
-                        </div>
-                        <div className="card-body">
-                            <div className="table-responsive">
-                                <table className="table table-responsive-md">
-                                    <thead>
-                                        <tr>
-                                            {/* <th><strong>NO.</strong></th> */}
-                                            <th><strong>Patient</strong></th>
-                                            <th><strong>Analyse</strong></th>
-                                            <th><strong>Date</strong></th>
-                                            {/* <th><strong>Status</strong></th> */}
-                                            <th><strong>Actions</strong></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.renderRowsP()}
-                                    </tbody>
-                                </table>
+                    {/* showmoal pour inserrer un nouveau patient */}
+
+                    <div className="modal fade bd-example-modal-lg" id="basicModal">
+                        <div className="modal-dialog modal-lg" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Ajout D'un Nouveau Patient</h5>
+                                    <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="col-xl-12 col-lg-12">
+                                        <div className="card-body">
+                                            <div className="basic-form">
+                                                <form onSubmit={this.submitpatient.bind(this)}>
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label">Nom :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder="Nom Du Patient" required value={this.state.nomPatient} onChange={(e) => this.setState({ nomPatient: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label"> Prénom :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder=" Prénom Du Patient" required value={this.state.prenomPatient} onChange={(e) => this.setState({ prenomPatient: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label"> Adresse :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder=" Adresse Du Patient" required value={this.state.adressePatient} onChange={(e) => this.setState({ adressePatient: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label"> Tel :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="number" className="form-control" placeholder=" Tel Du Patient" required value={this.state.telPatient} onChange={(e) => this.setState({ telPatient: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label"> Age  :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder=" Age Du Patient" required value={this.state.agePatient} onChange={(e) => this.setState({ agePatient: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label"> Accompagnant  :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder=" Accompagnant Du Patient" required value={this.state.nomAccompagant} onChange={(e) => this.setState({ nomAccompagant: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label">Tel. Accompagnant  :</label>
+                                                        <div className="col-sm-8">
+                                                            <input type="text" className="form-control" placeholder=" Tel Accompagnant Du Patient" required value={this.state.telAccompagnant} onChange={(e) => this.setState({ telAccompagnant: e.target.value })} />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="form-group row">
+                                                        <label className="col-sm-4 col-form-label">Obserrvation  :</label>
+                                                        <div className="col-sm-8">
+                                                            <textarea className="form-control" placeholder="Observation" value={this.state.observation} onChange={(e) => this.setState({ observation: e.target.value })} ></textarea>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-danger light" data-dismiss="modal">Fermer</button>
+                                                        <button type="submit" className="btn btn-primary" >Sauvegarder</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-                {/* <PDFCaisse /> */}
 
 
 
 
+                    <div className="col-lg-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-title">Liste des Analyses</h4>
+                            </div>
+                            <div className="card-body">
+                                <div className="table-responsive">
+                                    <table className="table table-responsive-md">
+                                        <thead>
+                                            <tr>
+                                                {/* <th><strong>NO.</strong></th> */}
+                                                <th><strong>Patient</strong></th>
+                                                <th><strong>Analyse</strong></th>
+                                                <th><strong>Date</strong></th>
+                                                {/* <th><strong>Status</strong></th> */}
+                                                <th><strong>Actions</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.renderRowsP()}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            </Fragment>
+
+                    {/* <PDFCaisse /> */}
 
 
 
 
 
+                </Fragment>
 
-        )
+            )
+        }
+
     }
 }
 

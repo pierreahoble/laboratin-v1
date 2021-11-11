@@ -100,6 +100,7 @@
     <script src="{{ asset('assets/js/custom.min.js') }}"></script>
     <script src="{{ asset('assets/js/deznav-init.js') }}"></script>
     <script src="{{ asset('assets/vendor/owl-carousel/owl.carousel.js') }}"></script>
+   
 
 
     @yield('scriptSecondaire')

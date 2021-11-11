@@ -20,6 +20,7 @@ class Ligne_analyse extends Model
         'prix_unitaire',
         'quantite',
         'montant',
+        'categorie_id'
     ];
 
 

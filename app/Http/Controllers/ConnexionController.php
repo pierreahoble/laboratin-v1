@@ -29,6 +29,7 @@ class ConnexionController extends Controller
         $user=Auth::attempt(['email' => $email, 'password' => $password]);
         
         if ($user) {
+            // return Auth::user();
             $pass= Auth::user()->password;
             if(Hash::check('12345', $pass)){
                 $email = Crypt::encrypt($email);
@@ -140,5 +141,19 @@ class ConnexionController extends Controller
                             ->with('nature_analyse')
                             ->get(['nature_analyse_id','user_id']);
         return $data;
+    }
+
+
+    public function user_connecte()
+    {
+        $user  = $this->getUser();
+     
+    return response()->json($user, 200);
+    }
+
+
+    public function getUser()
+    {
+        dd(Auth::user());
     }
 }

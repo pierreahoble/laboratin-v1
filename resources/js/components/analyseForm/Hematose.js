@@ -3,11 +3,11 @@ import React from 'react'
 const Hematose = () => {
     return (
         <>
-            <div class="mt-1">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <table class="table table-bordered">
+            <div className="mt-1">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-xl-12">
+                            <table className="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">
@@ -31,7 +31,7 @@ const Hematose = () => {
                             </table>
 
 
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">N 27</th>
@@ -63,10 +63,10 @@ const Hematose = () => {
 
 
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <table class="table">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-xl-12">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Appareil / Technique : Humaclot Junior</th>
@@ -79,20 +79,20 @@ const Hematose = () => {
 
 
 
-                <div class="row">
-                    <div class="col-xl-12">
+                <div className="row">
+                    <div className="col-xl-12">
 
-                        <h4 class="text-center">RESULTATS</h4>
-                        <table class="table">
+                        <h4 className="text-center">RESULTATS</h4>
+                        <table className="table">
                             <tbody>
                                 <tr>
                                     <td>PARAMETRES</td>
                                     <td>RESULTATS</td>
-                                    <td colspan="1"></td>
+                                    <td colSpan="1"></td>
                                     <td>VALEURS DE REFERENCE</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"></td>
+                                    <td colSpan="2"></td>
                                     <td>Patient sans traitement anticoagulant</td>
                                     <td>Patient sous traitement anticoagulant</td>
                                 </tr>
@@ -131,10 +131,10 @@ const Hematose = () => {
 
 
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <table class="table">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-xl-12">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Kit : Snibe</th>
@@ -154,13 +154,13 @@ const Hematose = () => {
 
 
 
-                <div class="row">
-                    <div class="col-xl-12">
-                        <table class="table">
+                <div className="row">
+                    <div className="col-xl-12">
+                        <table className="table">
                             <th>
                                 <tr>
                                     <th>PARAMETRES</th>
-                                    <th colspan="2"></th>
+                                    <th colSpan="2"></th>
                                     <th>RESULTATS</th>
                                 </tr>
 
