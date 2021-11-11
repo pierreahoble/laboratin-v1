@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Categorie;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Nature_analyse extends Model
 {
@@ -15,4 +16,10 @@ class Nature_analyse extends Model
         'libelle_analyse',
         'prix_unitaire'
     ];
+
+
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'categorie_id', 'id');
+    }   
 }

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import jsPDF from 'jspdf'
-import PDFCaisse from '../pdf/PDFCaisse'
 
 
 toast.configure()
@@ -31,6 +30,7 @@ class AnalysePatient extends Component {
         super(props)
 
         this.state = {
+            date: new Date().toLocaleString(),
             nomUser: '',
             prenomUser: '',
             nomR: '',
@@ -59,10 +59,22 @@ class AnalysePatient extends Component {
             tabRecapAnalyse: [],
             listePatient: [],
             print: 0,
-            code: ''
+            code: '',
+            btnPrint: true,
+            tousAnalyse: [],
+            nature: []
         }
     }
 
+
+    // getDate() {
+    //     var date = { currentTime: new Date().toLocaleString() };
+
+    //     this.setState({
+    //       date: date
+    //     });
+
+    //   }
 
 
 
@@ -71,11 +83,12 @@ class AnalysePatient extends Component {
 
 
 
+
         axios.get('http://localhost:8000/api/liste_des_analyses')
             .then((response) => {
                 var data = response.data
                 this.setState({
-                    analyses: data
+                    analyses: data,
                 })
             })
 
@@ -398,11 +411,33 @@ class AnalysePatient extends Component {
             console.log(response.data)
             this.setState({
                 btnValider: true,
-                showMessage: 'Analyse validé avec success'
+                showMessage: 'Analyse validé avec success',
+                btnPrint: false
             })
 
         })
 
+    }
+
+
+    //Print les analyse 
+    printLesAnalyse() {
+        axios.post('http://localhost:8000/api/analyse_user', {
+            "code": this.state.code
+        }).then((response) => {
+            var data = response.data[0].categorie
+            var nat = response.data[0].nature_analyse
+            // var dataFliter = [...new Set(data.map(item => item.id && item.libelle_categorie))]
+            var dataFliter = _.uniqBy(data, function (x) { return x.id && x.libelle_categorie })
+            // console.log('filter')
+            // console.log(dataFliter)
+            this.setState({
+                tousAnalyse: dataFliter,
+                nature: nat,
+                print: 2
+            })
+
+        })
     }
 
 
@@ -414,6 +449,8 @@ class AnalysePatient extends Component {
             print: 1
         })
     }
+
+
 
     comeBack() {
         this.setState({
@@ -432,6 +469,17 @@ class AnalysePatient extends Component {
     }
 
 
+    generatePDFLabo = () => {
+        // recuLabo
+        var doc = new jsPDF("p", "pt", "a4")
+        doc.html(document.querySelector('#recuLabo'), {
+            callback: function (pdf) {
+                pdf.save("reçulabo.pdf")
+            }
+        })
+    }
+
+
 
     renderPdfRecu() {
         return <div className="mt-1">
@@ -444,7 +492,7 @@ class AnalysePatient extends Component {
                                 <div style={{ textAlign: "center" }}>
                                     <p>REPUBLIQUE TOGOLAISE MINISTERE DE LA SANTE</p>
                                     <p>ET DE L'HYGIENE</p>
-                                    <p style={{ fontWeight: "bold", fontSize: '12px' }}>Reçu No 2345677 du 22/12/20 12:24</p>
+                                    <p style={{ fontWeight: "bold", fontSize: '12px' }}>Reçu No {this.state.code} du {this.state.date}</p>
                                     <p style={{ fontWeight: "bold", fontSize: '12px' }}>HOPITAL DE BE ORIGINALE</p>
                                 </div>
                                 <h5 className="card-title"></h5>
@@ -496,6 +544,7 @@ class AnalysePatient extends Component {
                                         <thead>
                                             <tr style={styleT}>
                                                 <th style={styleD}>Prestation</th>
+                                                <th style={styleD}>Qt1</th>
                                                 <th style={styleD}>Prix Unitaire</th>
                                                 <th style={styleD}>MT Brut</th>
                                                 <th style={styleD}>PEC</th>
@@ -507,10 +556,11 @@ class AnalysePatient extends Component {
                                                 this.state.tabRecapAnalyse.length > 0 ? this.state.tabRecapAnalyse.map((data, index) => {
                                                     return <tr key={index} style={styleT}>
                                                         <th style={styleD}> {data.libelle_analyse}</th>
+                                                        <th style={styleD}> 1 </th>
                                                         <td style={styleD}>{data.prix_unitaire}</td>
-                                                        <td style={styleD}><span>Tax</span>
+                                                        <td style={styleD}><span>800</span>
                                                         </td>
-                                                        <td style={styleD}>January 30</td>
+                                                        <td style={styleD}>4500</td>
                                                         <td style={styleD}>{data.prix_unitaire}</td>
                                                     </tr>
                                                 }) : ''
@@ -534,6 +584,47 @@ class AnalysePatient extends Component {
 
             </div>
         </div>
+    }
+
+
+
+    rendrePdfLesRecu() {
+        return <div className="mt-5" >
+
+            <div className="container" id="recuLabo" >
+
+                {
+                    this.state.tousAnalyse.map((data, index) => {
+                        return <div className="col-md-12" key={index}>
+                            <ul className="list-group">
+                                <li className="list-group-item" aria-current="true">Categorie Analyse : {data.libelle_categorie}</li>
+                                <li className="list-group-item"> Nom & Prénoms : {this.state.nomPatient + " "} {" " + this.state.prenomPatient}</li>
+                                <li className="list-group-item">
+                                    <table>
+                                        <tr> Analyses :</tr>
+                                        {this.state.nature.map((item, i) => {
+                                            if (item.categorie_id == data.id) {
+                                                return <tr key={item.id}>
+                                                    <td > {item.libelle_analyse}</td>
+                                                </tr>
+                                            }
+                                        })}
+                                    </table>
+                                </li>
+                            </ul>
+                            <br />
+                            <hr />
+                        </div>
+                    })
+
+                }
+
+            </div>
+            <button className="btn btn-primary" onClick={this.generatePDFLabo}>IMPRIMER</button>
+            <button className="btn btn-primarye" onClick={this.comeBack.bind(this)}> Retour a la page</button>
+
+        </div >
+
     }
 
 
@@ -588,7 +679,8 @@ class AnalysePatient extends Component {
                     <div className="d-flex">
                         <button className="btn btn-primary shadow btn-xs sharp mr-1" onClick={this.modifierAnalyse.bind(this)} disabled={this.state.btnValider} ><i className="fa fa-pencil"></i></button>
                         <button className="btn btn-danger shadow btn-xs sharp mr-1" onClick={this.supptabAnalyse.bind(this)} disabled={this.state.btnValider}><i className="fa fa-trash"></i></button>
-                        <button className="btn btn-info shadow btn-xs sharp mr-1" onClick={this.printAnalyse.bind(this)} ><i className="fa fa-print"></i></button>
+                        <button className="btn btn-info shadow btn-xs sharp mr-1" onClick={this.printAnalyse.bind(this)} disabled={this.state.btnPrint}><i className="fa fa-print"></i></button>
+                        <button className="btn btn-warning shadow btn-xs sharp mr-1" onClick={this.printLesAnalyse.bind(this)} disabled={this.state.btnPrint}><i className="fa fa-print"></i></button>
                         <button className="btn btn-dark shadow btn-xs sharp mr-1" onClick={this.validerAnalyse.bind(this)} ><i className="fa fa-check"></i></button>
                     </div>
                 </td>
@@ -604,7 +696,11 @@ class AnalysePatient extends Component {
 
         if (this.state.print == 1) {
             return this.renderPdfRecu()
-        } else {
+        }
+        if (this.state.print == 2) {
+            return this.rendrePdfLesRecu()
+        }
+        else {
 
             return (
                 <Fragment>

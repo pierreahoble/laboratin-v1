@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Analyse;
 use App\Models\Patient;
+use App\Models\Resultat;
 use App\Models\Categorie;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Ligne_analyse;
 use App\Models\Nature_analyse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AnalyseController extends Controller
 {
@@ -54,6 +56,7 @@ class AnalyseController extends Controller
        $data=Nature_analyse::join('categories','nature_analyses.categorie_id','categories.id')
                            // ->where('categories.id','=','nature_analyses.categorie_id')
                            ->get(['nature_analyses.*','categories.libelle_categorie']);
+    
        return response()->json($data, 200);
     }
 
@@ -208,6 +211,23 @@ class AnalyseController extends Controller
 
 
 
+  }
+
+
+  public function analyse_user(REQUEST $request)
+  {
+    // $liste = Analyse::find(134)->nature_analyse;
+    $code = request('code');
+
+    // $liste = Nature_analyse::with('Categorie')->get();
+
+    $data = Analyse::where('code',$code)
+                    ->with('categorie')
+                    ->with('nature_analyse')
+                    ->get();
+  
+
+    return response()->json($data, 200);
   }
 
 

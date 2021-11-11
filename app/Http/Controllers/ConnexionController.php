@@ -146,14 +146,14 @@ class ConnexionController extends Controller
 
     public function user_connecte()
     {
-        $user  = $this->getUser();
-     
-    return response()->json($user, 200);
+       $user = \Auth::user()->id;
+    
+        return $user;
     }
 
 
     public function getUser()
     {
-        dd(Auth::user());
+        return Auth::user();
     }
 }

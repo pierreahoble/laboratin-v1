@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Patient;
+use App\Models\Categorie;
 use App\Models\Ligne_analyse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,20 +21,20 @@ class Analyse extends Model
 
 
     
-    public function ligne_analyse()
-    {
-        return $this->hasMany(Ligne_analyse::class, 'analyse_id', 'id');
-    }
-
-
-   
+    
+    
+    
     public function resultat()
     {
         return $this->hasMany(Resultat::class, 'analyse_id', 'id');
     }
-
-
-   
+    
+    
+    
+    public function ligne_analyse()
+    {
+        return $this->hasMany(Ligne_analyse::class, 'analyse_id', 'id');
+    }
 
 
     
@@ -41,6 +42,7 @@ class Analyse extends Model
     {
         return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
+    
 
 
 
@@ -53,6 +55,12 @@ class Analyse extends Model
     public function nature_analyse()
     {
         return $this->BelongsToMany(Nature_analyse::class,Ligne_analyse::class );
+    }
+
+    
+    public function categorie()
+    {
+        return $this->belongsToMany(Categorie::class, Ligne_analyse::class);
     }
 
 

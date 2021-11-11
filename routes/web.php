@@ -24,7 +24,7 @@ use App\Http\Controllers\dashbord\DashbordController;
 //     return view('welcome');
 // });
 
-Route::view('recubilan', 'index');
+Route::view('recubilan', 'hemostase');
 Route::view('hemostase', 'hemostase');
 Route::get('logout',function(){
     // Auth::logout();
@@ -38,6 +38,10 @@ Route::get('ad', function () {
        'nom_user' => 'Admin Pierre',
    ]);
 });
+
+//User connecter
+Route::get('user_connecte',[ConnexionController::class,'user_connecte']); 
+
 
 
 

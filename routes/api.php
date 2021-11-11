@@ -110,4 +110,6 @@ Route::post('add_rub',[ResultatController::class,'add_rub']);
 Route::get('liste_resultat',[ResultatController::class,'liste_des_resultats']);
 
 
+Route::post('analyse_user',[AnalyseController::class,'analyse_user']);
+
 
